@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="reporte_minuta">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <table class="table">
+                                <tr>
+                                    <th style="background-color:green;text-align:center; color: white;">
+                                        Minuta de reunión
+                                    </th>
+                                </tr>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white; width: 15%;">
+                                        Fecha:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; border-top: 0px solid white; width: 35%;">
+                                        <span t-field="o.fecha_hora" />
+                                    </td>
+                                    <td style="width: 10%; border-top: 0px solid white;"></td>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;width: 15%;">
+                                        Proyecto:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black;border-top: 0px solid white;width:25%;">
+                                        <span t-field="o.proyecto.name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                        Duración:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black">
+                                        <span t-field="o.duracion"  t-field-options='{"widget": "float_time"}' />
+                                    </td>
+                                    <td style="border-top: 0px solid white;"></td>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                        Hito:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black">
+                                        <t t-set="lin" t-value="0" />
+                                        <t t-foreach="o.hito" t-as="h">
+                                            <t t-if="lin>0"><span>, </span></t>
+                                            <span t-esc="h.name" />
+                                            <t t-set="lin" t-value="lin + 1" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                        Sede:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black">
+                                        <span t-field="o.referencia" />
+                                    </td>
+                                    <td colspan="3" style="border-top: 0px solid white;"></td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                        Objetivo
+                                    </th>
+                                </tr>
+                                <tr style="background: #F0F0F0;">
+                                    <td>
+                                        <span t-field="o.objetivo" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th colspan="3" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                        Asistentes
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:60%;">
+                                        Nombre
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Puesto
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Empresa
+                                    </th>
+                                </tr>
+                                <t t-set="conta" t-value="1"/>
+                                <t t-foreach="o.asistencia_lines" t-as="asl">
+                                    <t t-if="(conta % 2) == 0">
+                                        <tr style="background: #CCCCCC;">
+                                            <td>
+                                                <span t-field="asl.name.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="asl.name.function" />
+                                            </td>
+                                            <td>
+                                                <span t-field="asl.name.company_id.name" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="(conta % 2) == 1">
+                                        <tr style="background: #F0F0F0;">
+                                            <td>
+                                                <span t-field="asl.name.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="asl.name.function" />
+                                            </td>
+                                            <td>
+                                                <span t-field="asl.name.company_id.name" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="conta" t-value="conta + 1"/>
+                                </t>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th colspan="2" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                        Actividades a realizar
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:80%;">
+                                        Actividad
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Estatus
+                                    </th>
+                                </tr>
+                                <t t-set="conta2" t-value="1"/>
+                                <t t-foreach="o.actividades_lines" t-as="acl">
+                                    <t t-if="(conta2 % 2) == 0">
+                                        <tr style="background: #CCCCCC;">
+                                            <td>
+                                                <span t-field="acl.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.status" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="(conta2 % 2) == 1">
+                                        <tr style="background: #F0F0F0;">
+                                            <td>
+                                                <span t-field="acl.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.status" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="conta2" t-value="conta2 + 1"/>
+                                </t>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th colspan="4" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                        Compromisos
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                        Tarea
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                        Asignado a
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Fecha límite
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Etapa
+                                    </th>
+                                </tr>
+                                <t t-set="conta3" t-value="1"/>
+                                <t t-foreach="o.compromisos_lines" t-as="col">
+                                    <t t-if="(conta3 % 2) == 0">
+                                        <tr style="background: #CCCCCC;">
+                                            <td>
+                                                <span t-field="col.name.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.user_id.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.date_deadline" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.stage_id.name" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="(conta3 % 2) == 1">
+                                        <tr style="background: #F0F0F0;">
+                                            <td>
+                                                <span t-field="col.name.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.user_id.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.date_deadline" />
+                                            </td>
+                                            <td>
+                                                <span t-field="col.name.stage_id.name" />
+                                            </td>
+                                        </tr>
+
+                                    <t t-set="conta3" t-value="conta3 + 1"/>
+                                    </t>
+                                </t>
+                            </table>
+                            <br/>
+
+                            <table class="table">
+                                <tr>
+                                    <th style="border-top: 0px solid white; width: 40%;"></th>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;width: 30%;">
+                                        Fecha y hora de proxima reunión:
+                                    </th>
+                                    <td style="border-top: 0px solid white;border-bottom: 1px solid black;width: 30%;">
+                                        <span t-field="o.fecha_proxima_reunion" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: 0px solid white;"></td>
+                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                        Sede de proxima reunión:
+                                    </th>
+                                    <td style="border-top: 0px solid white;border-bottom: 1px solid black;">
+                                        <span t-field="o.referencia2" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        <report
+            string="Minutas"
+            id="reporte_minutas"
+            model="minutas.xmarts"
+            report_type="qweb-pdf"
+            name="minutas.reporte_minuta"
+            file="minutas.reporte_minuta"
+        />
+    </data>
+</odoo>
