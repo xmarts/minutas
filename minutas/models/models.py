@@ -50,7 +50,6 @@ class MinutasXmarts(models.Model):
     reunion = fields.Many2one('res.partner', string='Lugar de reunión', required=True)
     proxima_reunion = fields.Many2one('res.partner', string='Lugar de proxima reunión')
 
-
     @api.one
     @api.depends('emails')
     def _correos(self):
@@ -60,7 +59,8 @@ class MinutasXmarts(models.Model):
             if line.minuta == True:
                 if cont > 0:
                     corr = corr + ','
-                corr = corr + line.name.email
+                if(line.name.email):
+                    corr = corr + line.name.email
                 cont = cont + 1
         self.emails = corr
 
@@ -86,26 +86,8 @@ class MinutasXmarts(models.Model):
                                                                     self.proxima_reunion.country_id.name,
                                                                     self.proxima_reunion.zip)
 
-    #@api.onchange('proyecto')
-    #def onchange_categ(self):
-    #    selected_categ = []
-    #    res = {}
-    #    if self.proyecto:
-    #        selected_categ.append(self.proyecto.partner_id.id)
-    #        for line in self.proyecto.partner_id.child_ids:
-    #            selected_categ.append(line.id)
-    #    res.update({
-    #        'domain': {
-    #            'reunion': [('id', '=', list(set(selected_categ)))],
-    #            'proxima_reunion': [('id', '=', list(set(selected_categ)))],
-    #        }
-    #    })
-    #    return res
 
     def action_orden_sent(self):
-        """ Open a window to compose an email, with the edi invoice template
-            message loaded by default
-        """
         self.ensure_one()
         template = self.env.ref('minutas.minuta_email_orden', False)
         compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
@@ -118,6 +100,8 @@ class MinutasXmarts(models.Model):
         )
         if self.status == 'borrador':
             self.status = 'recordatorio'
+        body = "Orden del dia enviada"+"\n"+"Proyecto: "+str(self.proyecto.name)
+        self.message_post(body=body, subtype='mt_comment', context="")
         return {
             'name': _('Orden Email'),
             'type': 'ir.actions.act_window',
@@ -131,9 +115,6 @@ class MinutasXmarts(models.Model):
         }
 
     def action_minuta_sent(self):
-        """ Open a window to compose an email, with the edi invoice template
-            message loaded by default
-        """
         self.ensure_one()
         template = self.env.ref('minutas.minuta_email_minuta', False)
         compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
@@ -146,6 +127,8 @@ class MinutasXmarts(models.Model):
             force_email=True
         )
         self.status = 'minuta'
+        body = "Minuta enviada"+"\n"+"Proyecto: "+str(self.proyecto.name)
+        self.message_post(body=body, subtype='mt_comment', context="")
         return {
             'name': _('Minuta Email'),
             'type': 'ir.actions.act_window',
