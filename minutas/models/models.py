@@ -141,12 +141,6 @@ class MinutasXmarts(models.Model):
             'context': ctx,
         }
 
-
-
-
-
-
-
 class MinutasXmartsAsistencia(models.Model):
     _name = 'minutas.xmarts.asistencia'
 
