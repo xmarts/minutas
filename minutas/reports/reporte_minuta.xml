@@ -102,10 +102,10 @@
                                                 <span t-field="asl.name.name" />
                                             </td>
                                             <td>
-                                                <span t-field="asl.name.function" />
+                                                <span t-field="asl.puesto" />
                                             </td>
                                             <td>
-                                                <span t-field="asl.name.company_id.name" />
+                                                <span t-field="asl.empresa" />
                                             </td>
                                         </tr>
                                     </t>
@@ -115,10 +115,10 @@
                                                 <span t-field="asl.name.name" />
                                             </td>
                                             <td>
-                                                <span t-field="asl.name.function" />
+                                                <span t-field="asl.puesto" />
                                             </td>
                                             <td>
-                                                <span t-field="asl.name.company_id.name" />
+                                                <span t-field="asl.empresa" />
                                             </td>
                                         </tr>
                                     </t>
@@ -129,16 +129,22 @@
 
                             <table class="table">
                                 <tr>
-                                    <th colspan="2" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                    <th colspan="4" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
                                         Actividades a realizar
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:80%;">
-                                        Actividad
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                        Tarea
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                        Asignado a
                                     </th>
                                     <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
-                                        Estatus
+                                        Fecha límite
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                        Etapa
                                     </th>
                                 </tr>
                                 <t t-set="conta2" t-value="1"/>
@@ -146,24 +152,37 @@
                                     <t t-if="(conta2 % 2) == 0">
                                         <tr style="background: #CCCCCC;">
                                             <td>
-                                                <span t-field="acl.name" />
+                                                <span t-field="acl.name.name" />
                                             </td>
                                             <td>
-                                                <span t-field="acl.status" />
+                                                <span t-field="acl.name.user_id.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.name.date_deadline" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.name.stage_id.name" />
                                             </td>
                                         </tr>
                                     </t>
                                     <t t-if="(conta2 % 2) == 1">
                                         <tr style="background: #F0F0F0;">
                                             <td>
-                                                <span t-field="acl.name" />
+                                                <span t-field="acl.name.name" />
                                             </td>
                                             <td>
-                                                <span t-field="acl.status" />
+                                                <span t-field="acl.name.user_id.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.name.date_deadline" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.name.stage_id.name" />
                                             </td>
                                         </tr>
-                                    </t>
+
                                     <t t-set="conta2" t-value="conta2 + 1"/>
+                                    </t>
                                 </t>
                             </table>
                             <br/>
