@@ -116,12 +116,6 @@
                 res_model="minutas.xmarts.hitos"
                 view_mode="tree,form"
             />
-            <act_window
-                id="action_minutas_xmarts_estatus"
-                name="Estatus de actividades"
-                res_model="minutas.xmarts.estatus"
-                view_mode="tree,form"
-            />
             <menuitem
                 id="menu_minutas_xmarts_config"
                 name="Configuracion"
@@ -134,13 +128,6 @@
                 sequence="28"
                 action="action_minutas_xmarts"
                 parent="menu_minutas_xmarts"
-            />
-            <menuitem
-                id="menu_minutas_xmarts_estatus"
-                name="Estatus de actividades"
-                sequence="35"
-                action="action_minutas_xmarts_estatus"
-                parent="menu_minutas_xmarts_config"
             />
             <menuitem
                 id="menu_minutas_xmarts_hitos"

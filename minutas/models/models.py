@@ -200,38 +200,11 @@ class MinutasXmartsActividades(models.Model):
 
 class MinutasXmartsCompromisos(models.Model):
     _name = 'minutas.xmarts.compromisos'
-
-    @api.onchange('name')
-    def onchange_name(self):
-        if self.name:
-            self.asignado = self.name.user_id.name
-            self.limite = self.name.date_deadline
-            self.etapa = self.name.stage_id.name
-
-    @api.one
-    @api.depends('name', 'asignado')
-    def _asignado(self):
-        self.asignado = self.name.user_id.name
-
-    @api.one
-    @api.depends('name', 'limite')
-    def _limite(self):
-        self.limite = self.name.date_deadline
-
-    @api.one
-    @api.depends('name', 'etapa')
-    def _etapa(self):
-        self.etapa = self.name.stage_id.name
-
-
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
     name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')
     asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
     limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
     etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
-    #asignado = fields.Char(string='Asignado a', compute='_asignado')
-    #limite = fields.Date(string='Fecha limite', compute='_limite')
-    #etapa = fields.Char(string='Etapa', compute='_etapa')
 
 class MinutasXmartsHitos(models.Model):
     _name = 'minutas.xmarts.hitos'
