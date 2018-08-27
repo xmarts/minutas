@@ -59,8 +59,10 @@ class MinutasXmarts(models.Model):
             if line.minuta == True:
                 if cont > 0:
                     corr = corr + ','
+
                 if(line.name.email):
                     corr = corr + line.name.email
+                    
                 cont = cont + 1
         self.emails = corr
 
