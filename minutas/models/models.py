@@ -186,15 +186,17 @@ class MinutasXmartsAsistencia(models.Model):
 
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta',ondelete='cascade', index=True,copy=False)
     name = fields.Many2one('res.partner',string='Nombre',ondelete='restrict', domain="[('is_company','=',False)]")
-    empresa = fields.Char('Empresa',compute='_empresa')
-    puesto = fields.Char('Puesto',compute='_puesto')
-    minuta = fields.Boolean('Envio de minuta')
+    empresa = fields.Char('Empresa',related='name.parent_id.name', readonly=True)
+    puesto = fields.Char('Puesto',related='name.function', readonly=True)
+    minuta = fields.Boolean('Envio de minuta', default=True)
 
 class MinutasXmartsActividades(models.Model):
     _name = 'minutas.xmarts.actividades'
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
-    name = fields.Char(string='Actividad',ondelete='restrict')
-    status = fields.Many2one('minutas.xmarts.estatus', string='Estatus de actividades')
+    name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')
+    asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
+    limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
+    etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
 
 class MinutasXmartsCompromisos(models.Model):
     _name = 'minutas.xmarts.compromisos'
@@ -224,9 +226,12 @@ class MinutasXmartsCompromisos(models.Model):
 
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
     name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')
-    asignado = fields.Char(string='Asignado a', compute='_asignado')
-    limite = fields.Date(string='Fecha limite', compute='_limite')
-    etapa = fields.Char(string='Etapa', compute='_etapa')
+    asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
+    limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
+    etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
+    #asignado = fields.Char(string='Asignado a', compute='_asignado')
+    #limite = fields.Date(string='Fecha limite', compute='_limite')
+    #etapa = fields.Char(string='Etapa', compute='_etapa')
 
 class MinutasXmartsHitos(models.Model):
     _name = 'minutas.xmarts.hitos'
