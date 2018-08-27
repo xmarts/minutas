@@ -166,24 +166,6 @@ class MinutasXmarts(models.Model):
 class MinutasXmartsAsistencia(models.Model):
     _name = 'minutas.xmarts.asistencia'
 
-    @api.onchange('name')
-    def onchange_name(self):
-        if self.name:
-            self.puesto = self.name.function
-            self.empresa = self.name.company_id.name
-
-
-    @api.one
-    @api.depends('name','empresa')
-    def _empresa(self):
-        self.empresa = self.name.company_id.name
-
-    @api.one
-    @api.depends('name', 'puesto')
-    def _puesto(self):
-        self.puesto = self.name.function
-
-
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta',ondelete='cascade', index=True,copy=False)
     name = fields.Many2one('res.partner',string='Nombre',ondelete='restrict', domain="[('is_company','=',False)]")
     empresa = fields.Char('Empresa',related='name.parent_id.name', readonly=True)
@@ -192,6 +174,7 @@ class MinutasXmartsAsistencia(models.Model):
 
 class MinutasXmartsActividades(models.Model):
     _name = 'minutas.xmarts.actividades'
+
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
     name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')
     asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
@@ -200,6 +183,7 @@ class MinutasXmartsActividades(models.Model):
 
 class MinutasXmartsCompromisos(models.Model):
     _name = 'minutas.xmarts.compromisos'
+    
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
     name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')
     asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
