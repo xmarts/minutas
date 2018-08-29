@@ -43,7 +43,8 @@ class MinutasXmarts(models.Model):
     fecha_proxima_reunion = fields.Datetime('Fecha de proxima reunión')
     fin_proxima_reunion = fields.Datetime('Fin proxima reunión')
     asistencia_lines = fields.One2many('minutas.xmarts.asistencia', 'minuta_id', string='Tabla Asistencia')
-    actividades_lines = fields.One2many('minutas.xmarts.actividades', 'minuta_id', string='Tabla Actividades')
+    actividades_lines = fields.One2many('minutas.xmarts.actividades', 'minuta_id', string='Tabla Actividades Extra')
+    activids_lines = fields.One2many('minutas.xmarts.activids', 'minuta_id', string='Tabla Actividades')
     compromisos_lines = fields.One2many('minutas.xmarts.compromisos', 'minuta_id', string='Tabla Compromisos')
     referencia = fields.Char(string='', compute='_referencia')
     referencia2 = fields.Char(string='', compute='_referencia2')
@@ -154,6 +155,12 @@ class MinutasXmartsAsistencia(models.Model):
 
 class MinutasXmartsActividades(models.Model):
     _name = 'minutas.xmarts.actividades'
+    minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
+    name = fields.Char(string='Actividad',ondelete='restrict')
+    status = fields.Many2one('minutas.xmarts.estatus', string='Estatus de actividades')
+
+class MinutasXmartsActivids(models.Model):
+    _name = 'minutas.xmarts.activids'
 
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
     name = fields.Many2one('project.task',string='Tarea',ondelete='restrict')

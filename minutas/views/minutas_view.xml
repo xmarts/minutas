@@ -72,7 +72,7 @@
                                     </field>
                                 </page>
                                 <page name="actividades" string="Actividades realizadas:">
-                                    <field name="actividades_lines" widget="one2many_list">
+                                    <field name="activids_lines" widget="one2many_list">
                                         <tree editable="bottom">
                                             <field name="name" domain="[('project_id','=',parent.proyecto)]"/>
                                             <field name="asignado"/>
@@ -88,6 +88,14 @@
                                             <field name="asignado"/>
                                             <field name="limite"/>
                                             <field name="etapa"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page name="actividades" string="Actividades extra:">
+                                    <field name="actividades_lines" widget="one2many_list">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="status"/>
                                         </tree>
                                     </field>
                                 </page>
@@ -138,6 +146,19 @@
                 name="Hitos"
                 sequence="40"
                 action="action_minutas_xmarts_hitos"
+                parent="menu_minutas_xmarts_config"
+            />
+            <act_window
+                id="action_minutas_xmarts_estatus"
+                name="Estatus de actividades"
+                res_model="minutas.xmarts.estatus"
+                view_mode="tree,form"
+            />
+            <menuitem
+                id="menu_minutas_xmarts_estatus"
+                name="Estatus de actividades"
+                sequence="35"
+                action="action_minutas_xmarts_estatus"
                 parent="menu_minutas_xmarts_config"
             />
         </data>
