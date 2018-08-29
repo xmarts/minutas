@@ -17,14 +17,14 @@
 
                             <table class="table">
                                 <tr>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white; width: 15%;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white; width: 15%;">
                                         Fecha:
                                     </th>
                                     <td style="border-bottom: 1px solid black; border-top: 0px solid white; width: 35%;">
                                         <span t-field="o.fecha_hora" />
                                     </td>
                                     <td style="width: 10%; border-top: 0px solid white;"></td>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;width: 15%;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;width: 15%;">
                                         Proyecto:
                                     </th>
                                     <td style="border-bottom: 1px solid black;border-top: 0px solid white;width:25%;">
@@ -32,14 +32,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;">
                                         Duración:
                                     </th>
                                     <td style="border-bottom: 1px solid black">
                                         <span t-field="o.duracion"  t-field-options='{"widget": "float_time"}' />
                                     </td>
                                     <td style="border-top: 0px solid white;"></td>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;">
                                         Hito:
                                     </th>
                                     <td style="border-bottom: 1px solid black">
@@ -52,7 +52,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;">
                                         Sede:
                                     </th>
                                     <td style="border-bottom: 1px solid black">
@@ -63,9 +63,9 @@
                             </table>
                             <br/>
 
-                            <table class="table">
+                            <table class="table" t-if="o.asistencia_lines">
                                 <tr>
-                                    <th style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                    <th style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
                                         Objetivo
                                     </th>
                                 </tr>
@@ -79,18 +79,18 @@
 
                             <table class="table">
                                 <tr>
-                                    <th colspan="3" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                    <th colspan="3" style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
                                         Asistentes
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:60%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:60%;">
                                         Nombre
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Puesto
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Empresa
                                     </th>
                                 </tr>
@@ -127,28 +127,28 @@
                             </table>
                             <br/>
 
-                            <table class="table">
+                            <table class="table" t-if="o.activids_lines">
                                 <tr>
-                                    <th colspan="4" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                    <th colspan="4" style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
                                         Actividades a realizar
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:30%;">
                                         Tarea
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:30%;">
                                         Asignado a
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Fecha límite
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Etapa
                                     </th>
                                 </tr>
                                 <t t-set="conta2" t-value="1"/>
-                                <t t-foreach="o.actividades_lines" t-as="acl">
+                                <t t-foreach="o.activids_lines" t-as="acl">
                                     <t t-if="(conta2 % 2) == 0">
                                         <tr style="background: #CCCCCC;">
                                             <td>
@@ -187,23 +187,23 @@
                             </table>
                             <br/>
 
-                            <table class="table">
+                            <table class="table" t-if="o.compromisos_lines">
                                 <tr>
-                                    <th colspan="4" style="border: 1px solid gray;background:#CB297B; color: white;text-align:center;">
+                                    <th colspan="4" style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
                                         Compromisos
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:30%;">
                                         Tarea
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:30%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:30%;">
                                         Asignado a
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Fecha límite
                                     </th>
-                                    <th style="border: 1px solid gray;background:#EF5EA7; color: white;text-align:center; width:20%;">
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
                                         Etapa
                                     </th>
                                 </tr>
@@ -247,10 +247,51 @@
                             </table>
                             <br/>
 
+                            <table class="table" t-if="o.actividades_lines">
+                                <tr>
+                                    <th colspan="2" style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
+                                        Actividades extra
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:80%;">
+                                        Actividad
+                                    </th>
+                                    <th style="border: 1px solid gray;background:#B0BFBA; color: white;text-align:center; width:20%;">
+                                        Estatus
+                                    </th>
+                                </tr>
+                                <t t-set="conta2" t-value="1"/>
+                                <t t-foreach="o.actividades_lines" t-as="acl">
+                                    <t t-if="(conta2 % 2) == 0">
+                                        <tr style="background: #CCCCCC;">
+                                            <td>
+                                                <span t-field="acl.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.status" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="(conta2 % 2) == 1">
+                                        <tr style="background: #F0F0F0;">
+                                            <td>
+                                                <span t-field="acl.name" />
+                                            </td>
+                                            <td>
+                                                <span t-field="acl.status" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="conta2" t-value="conta2 + 1"/>
+                                </t>
+                            </table>
+                            <br/>
+
                             <table class="table">
                                 <tr>
                                     <th style="border-top: 0px solid white; width: 40%;"></th>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;width: 30%;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;width: 30%;">
                                         Fecha y hora de proxima reunión:
                                     </th>
                                     <td style="border-top: 0px solid white;border-bottom: 1px solid black;width: 30%;">
@@ -259,7 +300,7 @@
                                 </tr>
                                 <tr>
                                     <td style="border-top: 0px solid white;"></td>
-                                    <th style="border: 1px solid #CB297B;background:#CB297B; color: white;">
+                                    <th style="border: 1px solid #757F7C;background:#757F7C; color: white;">
                                         Sede de proxima reunión:
                                     </th>
                                     <td style="border-top: 0px solid white;border-bottom: 1px solid black;">
