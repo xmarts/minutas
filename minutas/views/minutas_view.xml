@@ -61,7 +61,17 @@
                                 </group>
                             </group>
                             <notebook>
-                                <page name="asistencia" string="Asistentes:">
+                                <page name="asistencia" string="Asistentes Internos:">
+                                    <field name="asistenciain_lines" widget="one2many_list">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="departamento"/>
+                                            <field name="puesto"/>
+                                            <field name="minuta" type="checkbox"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page name="asistencia" string="Asistentes Externos:">
                                     <field name="asistencia_lines" widget="one2many_list">
                                         <tree editable="bottom">
                                             <field name="name"/>
@@ -161,5 +171,30 @@
                 action="action_minutas_xmarts_estatus"
                 parent="menu_minutas_xmarts_config"
             />
+
+
+
+
+            <record id="action_my_minutas_employee" model="ir.actions.server" >
+                <field name="name">Mis Minutas</field>
+                <field name="model_id" ref="model_hr_employee"/>
+                <field name="state">code</field>
+                <field name="code">
+                    action = model.my_minutas_employee()
+                </field>
+            </record>
+            <record id="minutas_add_button_count_hr" model="ir.ui.view">
+                <field name="name">minutas_add_button_count_hr</field>
+                <field name="model">hr.employee</field>
+                <field name="inherit_id" ref="hr.view_employee_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//div[@class='oe_button_box']" position="inside">
+                        <button type="action" name="%(action_my_minutas_employee)d" class="oe_stat_button" icon="fa-file-text">
+                            <field name="employe_minutas_count" widget="statinfo" string="Minutas"/>
+                        </button>
+                    </xpath>
+                </field>
+            </record>
+
         </data>
     </odoo>

@@ -42,7 +42,8 @@ class MinutasXmarts(models.Model):
     hito = fields.Many2many(comodel_name='minutas.xmarts.hitos',string='Hito')
     fecha_proxima_reunion = fields.Datetime('Fecha de proxima reunión')
     fin_proxima_reunion = fields.Datetime('Fin proxima reunión')
-    asistencia_lines = fields.One2many('minutas.xmarts.asistencia', 'minuta_id', string='Tabla Asistencia')
+    asistencia_lines = fields.One2many('minutas.xmarts.asistencia', 'minuta_id', string='Tabla Asistencia Externa')
+    asistenciain_lines = fields.One2many('minutas.xmarts.asistenciain', 'minuta_id', string='Tabla Asistencia Interna')
     actividades_lines = fields.One2many('minutas.xmarts.actividades', 'minuta_id', string='Tabla Actividades Extra')
     activids_lines = fields.One2many('minutas.xmarts.activids', 'minuta_id', string='Tabla Actividades')
     compromisos_lines = fields.One2many('minutas.xmarts.compromisos', 'minuta_id', string='Tabla Compromisos')
@@ -153,6 +154,15 @@ class MinutasXmartsAsistencia(models.Model):
     puesto = fields.Char('Puesto',related='name.function', readonly=True)
     minuta = fields.Boolean('Envio de minuta', default=True)
 
+class MinutasXmartsAsistenciaInterna(models.Model):
+    _name = 'minutas.xmarts.asistenciain'
+
+    minuta_id = fields.Many2one('minutas.xmarts', string='Minuta',ondelete='cascade', index=True,copy=False)
+    name = fields.Many2one('hr.employee',string='Nombre',ondelete='restrict')
+    departamento = fields.Char('Puesto',related='name.department_id.name', readonly=True)
+    puesto = fields.Char('Puesto',related='name.job_id.name', readonly=True)
+    minuta = fields.Boolean('Envio de minuta', default=True)
+
 class MinutasXmartsActividades(models.Model):
     _name = 'minutas.xmarts.actividades'
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta', ondelete='cascade', index=True, copy=False)
@@ -184,3 +194,30 @@ class MinutasXmartsHitos(models.Model):
 class MinutasXmartsEstatus(models.Model):
     _name = 'minutas.xmarts.estatus'
     name = fields.Char('Estatus de actividad')
+
+
+class hrEmployeeMinutas(models.Model):
+    _name='hr.employee'
+    _inherit='hr.employee'
+
+    employe_minutas_count = fields.Integer(string="", default=0)
+
+    @api.model
+    def my_minutas_employee(self):
+        #cr = self.env.cr
+        #sql = "select po.id from purchase_order po inner join purchase_order_types pot on pot.id=po.purchase_type inner join purchase_order_types_res_users_rel potu on potu.purchase_order_types_id=pot.id where (po.valid_purchase=False or po.valid_purchase is null) AND potu.res_users_id='"+str(self.env.uid)+"'"
+        #cr.execute(sql)
+        #compras = cr.fetchall()
+
+        #lista=[]
+        #for l in compras:
+        #    lista.append(l[0])
+        action = {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'name': _('Mis minutas'),
+            'res_model': 'minutas.xmarts',
+            'domain': [],
+        }
+        return action
+        
