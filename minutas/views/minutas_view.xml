@@ -67,6 +67,7 @@
                                             <field name="name"/>
                                             <field name="departamento"/>
                                             <field name="puesto"/>
+                                            <field name="email"/>
                                             <field name="minuta" type="checkbox"/>
                                         </tree>
                                     </field>
@@ -77,6 +78,7 @@
                                             <field name="name"/>
                                             <field name="empresa"/>
                                             <field name="puesto"/>
+                                            <field name="email"/>
                                             <field name="minuta" type="checkbox"/>
                                         </tree>
                                     </field>

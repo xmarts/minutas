@@ -152,6 +152,7 @@ class MinutasXmartsAsistencia(models.Model):
     name = fields.Many2one('res.partner',string='Nombre',ondelete='restrict', domain="[('is_company','=',False)]")
     empresa = fields.Char('Empresa',related='name.parent_id.name', readonly=True)
     puesto = fields.Char('Puesto',related='name.function', readonly=True)
+    email = fields.Char('E-mail', related='name.email', readonly=True)
     minuta = fields.Boolean('Envio de minuta', default=True)
 
 class MinutasXmartsAsistenciaInterna(models.Model):
@@ -161,6 +162,7 @@ class MinutasXmartsAsistenciaInterna(models.Model):
     name = fields.Many2one('hr.employee',string='Nombre',ondelete='restrict')
     departamento = fields.Char('Puesto',related='name.department_id.name', readonly=True)
     puesto = fields.Char('Puesto',related='name.job_id.name', readonly=True)
+    email = fields.Char('E-mail', related='name.work_email', readonly=True)
     minuta = fields.Boolean('Envio de minuta', default=True)
 
 class MinutasXmartsActividades(models.Model):
