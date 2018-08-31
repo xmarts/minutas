@@ -2,6 +2,7 @@
     'name': 'Minutas Xmarts',
     'description': 'Creación de Minutas Xmarts',
     'author': 'Pablo Osorio Gama',
+    'version': '0.2',
     'depends': ['hr','project','contacts','mail','contacts'],
     'data' : [
         'views/minutas_view.xml',
