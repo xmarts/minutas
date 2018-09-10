@@ -202,24 +202,41 @@ class hrEmployeeMinutas(models.Model):
     _name='hr.employee'
     _inherit='hr.employee'
 
-    employe_minutas_count = fields.Integer(string="", default=0)
+    employe_minutas_count = fields.Integer(string="", default=0, compute='count_minutas_employee')
 
+    @api.one
+    def count_minutas_employee(self):
+        cr = self.env.cr
+        sql = "select coalesce(count(distinct mx.id),0) from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mx.id=mxa.minuta_id where mxa.name='"+str(self.id)+"';"
+        cr.execute(sql)
+        minutas = cr.fetchone()
+        self.employe_minutas_count=minutas[0]
+
+
+class hrProjectMinutas(models.Model):
+    _name='project.project'
+    _inherit='project.project'
+
+    project_minutas_count = fields.Integer(string="", default=0, compute='count_minutas_project')
+        
+    @api.one
+    def count_minutas_project(self):
+        cr = self.env.cr
+        sql = "select coalesce(count(distinct mx.id),0) from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mx.id=mxa.minuta_id where mx.proyecto='"+str(self.id)+"';"
+        cr.execute(sql)
+        minutas = cr.fetchone()
+        self.project_minutas_count=minutas[0]
+
+
+    
     @api.model
-    def my_minutas_employee(self):
-        #cr = self.env.cr
-        #sql = "select po.id from purchase_order po inner join purchase_order_types pot on pot.id=po.purchase_type inner join purchase_order_types_res_users_rel potu on potu.purchase_order_types_id=pot.id where (po.valid_purchase=False or po.valid_purchase is null) AND potu.res_users_id='"+str(self.env.uid)+"'"
-        #cr.execute(sql)
-        #compras = cr.fetchall()
-
-        #lista=[]
-        #for l in compras:
-        #    lista.append(l[0])
+    def my_minutas_project(self):
         action = {
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
-            'name': _('Mis minutas'),
+            'name': _('Minutas del proyecto'),
             'res_model': 'minutas.xmarts',
-            'domain': [],
+            'domain': [('proyecto.id', '=', self.parent_id)],
         }
+        print (str(self.id))
         return action
-        
