@@ -38,7 +38,7 @@ class MinutasXmarts(models.Model):
     fecha_hora = fields.Datetime('Fecha y Hora', required=True)
     proyecto = fields.Many2one('project.project',string='Proyecto',required = True)
     name = fields.Char(string='Minuta', default=_get_default_name)
-    duracion = fields.Float('Duración', required=True)
+    duracion = fields.Float('Duración (HH:MM)', required=True, default=1)
     hito = fields.Many2many(comodel_name='minutas.xmarts.hitos',string='Hito')
     fecha_proxima_reunion = fields.Datetime('Fecha de proxima reunión')
     fin_proxima_reunion = fields.Datetime('Fin proxima reunión')
@@ -62,8 +62,17 @@ class MinutasXmarts(models.Model):
                 if cont > 0:
                     corr = corr + ','
 
-                if(line.name.email):
-                    corr = corr + line.name.email
+                if(line.email):
+                    corr = corr + line.email
+                    
+                cont = cont + 1
+        for line in self.asistenciain_lines:
+            if line.minuta == True:
+                if cont > 0:
+                    corr = corr + ','
+
+                if(line.email):
+                    corr = corr + line.email
                     
                 cont = cont + 1
         self.emails = corr
@@ -159,10 +168,9 @@ class MinutasXmartsAsistenciaInterna(models.Model):
     _name = 'minutas.xmarts.asistenciain'
 
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta',ondelete='cascade', index=True,copy=False)
-    name = fields.Many2one('hr.employee',string='Nombre',ondelete='restrict')
-    departamento = fields.Char('Puesto',related='name.department_id.name', readonly=True)
-    puesto = fields.Char('Puesto',related='name.job_id.name', readonly=True)
-    email = fields.Char('E-mail', related='name.work_email', readonly=True)
+    name = fields.Many2one('res.users',string='Nombre',ondelete='restrict')
+    puesto = fields.Char('Puesto',related='name.partner_id.function', readonly=True)
+    email = fields.Char('E-mail', related='name.partner_id.email', readonly=True)
     minuta = fields.Boolean('Envio de minuta', default=True)
 
 class MinutasXmartsActividades(models.Model):
@@ -230,13 +238,19 @@ class hrProjectMinutas(models.Model):
 
     
     @api.model
-    def my_minutas_project(self):
+    def mis_minutas_search(self):
+        cr = self.env.cr
+        sql = "select * from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mxa.minuta_id=mx.id where mxa.name='"+str(self.env.uid)+"';"
+        cr.execute(sql)
+        minutas = cr.fetchall()
+        lista=[]
+        for l in minutas:
+            lista.append(l[0])
         action = {
             'type': 'ir.actions.act_window',
             'view_mode': 'tree,form',
             'name': _('Minutas del proyecto'),
             'res_model': 'minutas.xmarts',
-            'domain': [('proyecto.id', '=', self.parent_id)],
+            'domain': [('id', 'in', lista)],
         }
-        print (str(self.id))
         return action

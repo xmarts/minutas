@@ -65,7 +65,6 @@
                                     <field name="asistenciain_lines" widget="one2many_list">
                                         <tree editable="bottom">
                                             <field name="name"/>
-                                            <field name="departamento"/>
                                             <field name="puesto"/>
                                             <field name="email"/>
                                             <field name="minuta" type="checkbox"/>
@@ -180,6 +179,21 @@
                 src_model="project.project"
                 domain="[('proyecto','=',active_id)]"
                 view_mode="tree,form"
+            />
+            <record id="action_my_minutas_xmarts" model="ir.actions.server" >
+                <field name="name">Mis Minutas</field>
+                <field name="model_id" ref="model_project_project"/>
+                <field name="state">code</field>
+                <field name="code">
+                    action = model.mis_minutas_search()
+                </field>
+            </record>
+            <menuitem
+                id="menu_mis_minutas_xmarts_minutas"
+                name="Mis Minutas"
+                sequence="29"
+                action="action_my_minutas_xmarts"
+                parent="menu_minutas_xmarts"
             />
             <record id="minutas_add_button_count_project" model="ir.ui.view">
                 <field name="name">minutas_add_button_count_project</field>
