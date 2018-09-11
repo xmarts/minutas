@@ -178,7 +178,7 @@
                                 </tr>
                                 <t t-set="contaa" t-value="1"/>
                                 <t t-foreach="o.activids_lines" t-as="acl">
-                                    <t t-if="(contaa % 2) == 1">
+                                    <t t-if="(contaa % 2) == 0">
                                         <tr style="background: #FFFFFF; border-bottom: #F0F0F0;">
                                             <td>
                                                 <span t-field="acl.name.name" />
@@ -292,7 +292,7 @@
                                 </tr>
                                 <t t-set="contaaaa" t-value="1"/>
                                 <t t-foreach="o.actividades_lines" t-as="acl">
-                                    <t t-if="(contaaaa % 2) == 1">
+                                    <t t-if="(contaaaa % 2) == 0">
                                         <tr style="background: #FFFFFF; border-bottom: #F0F0F0;">
                                             <td>
                                                 <span t-field="acl.name" />
