@@ -159,7 +159,7 @@
                             <table class="table" t-if="o.activids_lines">
                                 <tr>
                                     <th colspan="4" style="border: 1px solid gray;background:#757F7C; color: white;text-align:center;">
-                                        Actividades a realizar
+                                        Actividades realizadas
                                     </th>
                                 </tr>
                                 <tr>
