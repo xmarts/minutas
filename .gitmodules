@@ -1,0 +1,4 @@
+[submodule "xmarts/pos_stock_v11"]
+	path = xmarts/pos_stock_v11
+	url = git@github.com:xmarts/pos_stock_v11.git
+	branch = master
