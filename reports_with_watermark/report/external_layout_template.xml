@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_sale_order_inherit_res_company" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[@class='header']" position="inside"> 
+            <div>
+                 <t t-if = "company.watermark_option == 'backgroundimage'">
+                    <img t-if="company.upload_image" t-att-src="'data:image/png;base64,%s' % to_text(company.upload_image)" style="top:400px;position:absolute;width:100%;opacity:0.25;"/>
+                </t>
+            </div>
+
+            <div>
+                <t t-if = "company.watermark_option == 'logo'">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="top:400px;position:absolute;width:100%;opacity:0.25;"/>
+                </t>
+            </div>
+
+            <div>
+                <t t-if = "company.watermark_option == 'name'">
+                    <t t-if="company.rotate_image == True and not company.font_size and not company.font_color">
+                        <span t-field="company.name" t-att-style="'transform:rotate(' + company.rotate_angle + ' deg); -webkit-transform:rotate(' + company.rotate_angle + 'deg); top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                    </t>
+                    <t t-if="company.rotate_image == True and company.font_size and not company.font_color">
+                        <span t-field="company.name" t-att-style="'transform:rotate(' + company.rotate_angle + ' deg); -webkit-transform:rotate(' + company.rotate_angle + 'deg);font-size:'+ company.font_size + 'px;top:500px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                    </t>
+                    <t t-if="company.rotate_image == True and company.font_color and not company.font_size">
+                        <span t-field="company.name" t-att-style="'transform:rotate(' + company.rotate_angle + ' deg); -webkit-transform:rotate(' + company.rotate_angle + 'deg);color: '+ company.font_color +'; top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                    </t>
+                    <t t-if="company.rotate_image == True and company.font_size and company.font_color">
+                        <span t-field="company.name" t-att-style="'transform:rotate(' + company.rotate_angle + ' deg); -webkit-transform:rotate(' + company.rotate_angle + 'deg);font-size: '+ company.font_size + 'px; color: '+ company.font_color +';top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                    </t>
+
+                    <t t-if="company.rotate_image == False">
+                        <t t-if="company.font_size and not company.font_color">
+                            <span t-field="company.name" t-att-style="'font-size:' + company.font_size + 'px;''top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                        </t>
+                        <t t-if="company.font_color and not company.font_size">
+                            <span t-field="company.name" t-att-style="'color:' + company.font_color + ';' 'top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                        </t>
+                        <t t-if="company.font_size and company.font_color">
+                            <span t-field="company.name" t-att-style="'font-size:' + company.font_size + 'px;' 'color:' + company.font_color + ';' 'top:400px;position:absolute;text-align:center;width:100%;absolute;opacity:0.25;'"/>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
