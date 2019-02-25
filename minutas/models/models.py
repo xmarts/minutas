@@ -51,6 +51,9 @@ class MinutasXmarts(models.Model):
     referencia2 = fields.Char(string='', compute='_referencia2')
     reunion = fields.Many2one('res.partner', string='Lugar de reunión', required=True)
     proxima_reunion = fields.Many2one('res.partner', string='Lugar de proxima reunión')
+    client=fields.Binary(string='Cliente')
+    consul=fields.Binary(string='Consultor')
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id)
 
     @api.one
     @api.depends('emails')
@@ -254,3 +257,4 @@ class hrProjectMinutas(models.Model):
             'domain': [('id', 'in', lista)],
         }
         return action
+

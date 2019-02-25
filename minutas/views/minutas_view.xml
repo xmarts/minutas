@@ -24,6 +24,7 @@
                             <field name="status" widget="statusbar"/>
                         </header>
                         <sheet string="Minutas">
+                            <field name="company_id" invisible='1'/>
                             <group name="group0">
                                 <group name="group_left">
                                     <field name="objetivo"/>
@@ -109,6 +110,18 @@
                                             <field name="status"/>
                                         </tree>
                                     </field>
+                                </page>
+                                <page name="firmas" string="Firmas:">
+                                    <group name="group3">                                        
+                                        <group name="groupasig">
+                                           
+                                            <field name="client" widget="signature"/>
+                                        </group>
+                                        <group name="groupasig2">
+                                          
+                                            <field name="consul" widget="signature"/>
+                                        </group>
+                                    </group>                                   
                                 </page>
                             </notebook>
                         </sheet>
