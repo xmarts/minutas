@@ -90,6 +90,7 @@
                                             <field name="asignado"/>
                                             <field name="limite"/>
                                             <field name="etapa"/>
+                                            <field name="observaciones"/>
                                         </tree>
                                     </field>
                                 </page>
@@ -100,6 +101,7 @@
                                             <field name="asignado"/>
                                             <field name="limite"/>
                                             <field name="etapa"/>
+                                            <field name="observaciones"/>
                                         </tree>
                                     </field>
                                 </page>

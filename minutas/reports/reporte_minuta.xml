@@ -158,7 +158,7 @@
 
                             <table class="table" t-if="o.activids_lines">
                                 <tr>
-                                    <th colspan="4" style="border: 1px solid black;   text-align:center;">
+                                    <th colspan="5" style="border: 1px solid black;   text-align:center;">
                                         Actividades realizadas
                                     </th>
                                 </tr>
@@ -174,6 +174,9 @@
                                     </th>
                                     <th style="text-align:left; width:20%;">
                                         Etapa
+                                    </th>
+                                    <th style="text-align:left; width:20%;">
+                                        Descripcion
                                     </th>
                                 </tr>
                                 <t t-set="contaa" t-value="1"/>
@@ -191,6 +194,9 @@
                                             </td>
                                             <td>
                                                 <span t-field="acl.name.stage_id.name" />
+                                            </td>                                            
+                                            <td>
+                                                <span t-field="acl.observaciones"/>
                                             </td>
                                         </tr>
                                     </t>
@@ -207,6 +213,9 @@
                                             </td>
                                             <td>
                                                 <span t-field="acl.name.stage_id.name" />
+                                            </td>                                            
+                                            <td>
+                                                <span t-field="acl.observaciones"/>
                                             </td>
                                         </tr>
 
@@ -218,7 +227,7 @@
 
                             <table class="table" t-if="o.compromisos_lines">
                                 <tr>
-                                    <th colspan="4" style="border: 1px solid black;   text-align:center;">
+                                    <th colspan="5" style="border: 1px solid black;   text-align:center;">
                                         Compromisos
                                     </th>
                                 </tr>
@@ -234,6 +243,9 @@
                                     </th>
                                     <th style="text-align:left; width:20%;">
                                         Etapa
+                                    </th>
+                                     <th style="text-align:left; width:20%;">
+                                        Descripcion
                                     </th>
                                 </tr>
                                 <t t-set="contaaa" t-value="1"/>
@@ -252,6 +264,9 @@
                                             <td>
                                                 <span t-field="col.name.stage_id.name" />
                                             </td>
+                                              <td>
+                                                <span t-field="col.observaciones"/>
+                                            </td>
                                         </tr>
                                     </t>
                                     <t t-if="(contaaa % 2) == 1">
@@ -267,6 +282,10 @@
                                             </td>
                                             <td>
                                                 <span t-field="col.name.stage_id.name" />
+                                            </td>
+                                            
+                                              <td>
+                                                <span t-field="col.observaciones"/>
                                             </td>
                                         </tr>
 
