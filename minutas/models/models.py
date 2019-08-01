@@ -190,6 +190,7 @@ class MinutasXmartsActivids(models.Model):
     asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
     limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
     etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
+    observaciones =  fields.Text(string='Descripcion')
 
 class MinutasXmartsCompromisos(models.Model):
     _name = 'minutas.xmarts.compromisos'
@@ -199,6 +200,7 @@ class MinutasXmartsCompromisos(models.Model):
     asignado = fields.Char(string='Asignado a', related='name.user_id.name', readonly=True)
     limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
     etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
+    observaciones =  fields.Text(string='Descripcion')
 
 class MinutasXmartsHitos(models.Model):
     _name = 'minutas.xmarts.hitos'
