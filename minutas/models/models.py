@@ -1,29 +1,36 @@
 #-*- coding: utf-8 -*-
-from openerp import models, fields, api, _, tools, time
+from odoo import models, fields, api, _, tools, time 
 
 class MinutasXmarts(models.Model):
     _name = 'minutas.xmarts'
     _inherit = ['mail.thread']
 
-    @api.one
     @api.depends('reunion', 'referencia')
     def _referencia(self):
-        if self.reunion:
-            self.referencia = 'calle {}, {}, {}, {}, CP: {}'.format(self.reunion.street,
-                                                                    self.reunion.city,
-                                                                    self.reunion.state_id.name,
-                                                                    self.reunion.country_id.name,
-                                                                    self.reunion.zip)
+        for rec in self:
+            if rec.reunion:
+                calle = 'calle {}, {}, {}, {}, CP: {}'.format(rec.reunion.street,
+                                                                        rec.reunion.city,
+                                                                        rec.reunion.state_id.name,
+                                                                        rec.reunion.country_id.name,
+                                                                        rec.reunion.zip)
+                rec.referencia = calle
+            else: 
+                rec.referencia = ""
 
-    @api.one
     @api.depends('proxima_reunion', 'referencia2')
     def _referencia2(self):
-        if self.proxima_reunion:
-            self.referencia2 = 'calle {}, {}, {}, {}, CP: {}'.format(self.proxima_reunion.street,
-                                                                    self.proxima_reunion.city,
-                                                                    self.proxima_reunion.state_id.name,
-                                                                    self.proxima_reunion.country_id.name,
-                                                                    self.proxima_reunion.zip)
+        for rec in self:
+            if rec.proxima_reunion:
+                calle2 = 'calle {}, {}, {}, {}, CP: {}'.format(rec.proxima_reunion.street,
+                                                                        rec.proxima_reunion.city,
+                                                                        rec.proxima_reunion.state_id.name,
+                                                                        rec.proxima_reunion.country_id.name,
+                                                                        rec.proxima_reunion.zip)
+                rec.referencia2 = calle2
+            else: 
+                rec.referencia2 = ""
+
 
     def _get_default_name(self):
         cr = self.env.cr
@@ -55,7 +62,6 @@ class MinutasXmarts(models.Model):
     consul=fields.Binary(string='Consultor')
     company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id)
 
-    @api.one
     @api.depends('emails')
     def _correos(self):
         cont = 0
@@ -171,9 +177,9 @@ class MinutasXmartsAsistenciaInterna(models.Model):
     _name = 'minutas.xmarts.asistenciain'
 
     minuta_id = fields.Many2one('minutas.xmarts', string='Minuta',ondelete='cascade', index=True,copy=False)
-    name = fields.Many2one('res.users',string='Nombre',ondelete='restrict')
-    puesto = fields.Char('Puesto',related='name.partner_id.function', readonly=True)
-    email = fields.Char('E-mail', related='name.partner_id.email', readonly=True)
+    name = fields.Many2one('hr.employee',string='Nombre',ondelete='restrict')
+    puesto = fields.Char('Puesto',related='name.job_id.name', readonly=True)
+    email = fields.Char('E-mail', related='name.work_email', readonly=True)
     minuta = fields.Boolean('Envio de minuta', default=True)
 
 class MinutasXmartsActividades(models.Model):
@@ -217,7 +223,6 @@ class hrEmployeeMinutas(models.Model):
 
     employe_minutas_count = fields.Integer(string="", default=0, compute='count_minutas_employee')
 
-    @api.one
     def count_minutas_employee(self):
         cr = self.env.cr
         sql = "select coalesce(count(distinct mx.id),0) from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mx.id=mxa.minuta_id where mxa.name='"+str(self.id)+"';"
@@ -231,8 +236,7 @@ class hrProjectMinutas(models.Model):
     _inherit='project.project'
 
     project_minutas_count = fields.Integer(string="", default=0, compute='count_minutas_project')
-        
-    @api.one
+
     def count_minutas_project(self):
         cr = self.env.cr
         sql = "select coalesce(count(distinct mx.id),0) from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mx.id=mxa.minuta_id where mx.proyecto='"+str(self.id)+"';"
@@ -242,7 +246,6 @@ class hrProjectMinutas(models.Model):
 
 
     
-    @api.model
     def mis_minutas_search(self):
         cr = self.env.cr
         sql = "select * from minutas_xmarts mx inner join minutas_xmarts_asistenciain mxa on mxa.minuta_id=mx.id where mxa.name='"+str(self.env.uid)+"';"
@@ -259,4 +262,3 @@ class hrProjectMinutas(models.Model):
             'domain': [('id', 'in', lista)],
         }
         return action
-

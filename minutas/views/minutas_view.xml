@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <odoo>
-        <data>
+    <odoo>  
+
+            <record model="ir.actions.act_window" id="action_minutas_xmarts">
+                <field name="name">Minutas</field>
+                <field name="res_model">minutas.xmarts</field>
+                <field name="view_mode">tree,form</field>
+            </record>
             <act_window
                 id="action_minutas_xmarts"
                 name="Minutas"
@@ -13,7 +18,7 @@
                 sequence="20"
                 parent="project.menu_main_pm"
             />
-            <record    id="view_form_minutas" model="ir.ui.view">
+            <record id="view_form_minutas" model="ir.ui.view">
                 <field name="name">Minutas Form</field>
                 <field name="model">minutas.xmarts</field>
                 <field name="arch" type="xml">
@@ -191,10 +196,10 @@
                 id="action_minutas_xmarts_project"
                 name="Minutas"
                 res_model="minutas.xmarts"
-                src_model="project.project"
                 domain="[('proyecto','=',active_id)]"
                 view_mode="tree,form"
             />
+                <!-- src_model="project.project" -->
             <record id="action_my_minutas_xmarts" model="ir.actions.server" >
                 <field name="name">Mis Minutas</field>
                 <field name="model_id" ref="model_project_project"/>
@@ -234,6 +239,4 @@
                     </xpath>
                 </field>
             </record>
-
-        </data>
     </odoo>
