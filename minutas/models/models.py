@@ -123,7 +123,7 @@ class MinutasXmarts(models.Model):
         if self.status == 'borrador':
             self.status = 'recordatorio'
         body = "Orden del dia enviada"+"\n"+"Proyecto: "+str(self.proyecto.name)
-        self.message_post(body=body, subtype='mt_comment', context="")
+        self.message_post(body=body, message_type='comment', subtype_xmlid='mail.mt_comment')
         return {
             'name': _('Orden Email'),
             'type': 'ir.actions.act_window',
@@ -150,7 +150,7 @@ class MinutasXmarts(models.Model):
         )
         self.status = 'minuta'
         body = "Minuta enviada"+"\n"+"Proyecto: "+str(self.proyecto.name)
-        self.message_post(body=body, subtype='mt_comment', context="")
+        self.message_post(body=body, message_type='comment', subtype_xmlid='mail.mt_comment')
         return {
             'name': _('Minuta Email'),
             'type': 'ir.actions.act_window',
