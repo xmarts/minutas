@@ -8,10 +8,10 @@
 
         'security/groups_minutas.xml',
         'security/ir.model.access.csv',
-        'views/minutas_xmarts.xml',
-        'views/project_project.xml',
-        'views/minutas_xmarts_estatus.xml',
-        'views/minutas_xmarts_hitos.xml',
+        'views/minutas_xmarts_view.xml',
+        'views/project_project_view.xml',
+        'views/minutas_xmarts_estatus_view.xml',
+        'views/minutas_xmarts_hitos_view.xml',
         'reports/reporte_minuta.xml',
         'reports/reporte_orden.xml'
     ],
