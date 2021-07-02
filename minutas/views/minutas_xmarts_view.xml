@@ -81,6 +81,7 @@
                             <field name="activids_lines" widget="one2many_list">
                                 <tree editable="bottom">
                                     <field name="name" domain="[('project_id','=',parent.proyecto)]"/>
+                                    <button string='Agregar horas' name="action_set_horas"/>
                                     <field name="asignado"/>
                                     <field name="limite"/>
                                     <field name="etapa"/>

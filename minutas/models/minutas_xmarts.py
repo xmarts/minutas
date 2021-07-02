@@ -164,3 +164,13 @@ class MinutasXmarts(models.Model):
             'target': 'new',
             'context': ctx,
         }
+
+    def action_set_horas(self):
+        return {
+            'name': 'Registro de Horas',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.analytic.line',
+            'view_mode': 'form',
+            'view_id': [(self.env.ref('minutas.view_account_analytic_line_wizard').id, 'form')],
+            'target': 'new',
+        }

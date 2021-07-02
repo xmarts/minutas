@@ -3,7 +3,7 @@
     'description': 'Creación de Minutas Xmarts',
     'author': 'Xmarts',
     'version': '14.0.2',
-    'depends': ['hr','project','contacts','mail','web_digital_sign'],
+    'depends': ['hr','project','contacts','mail','web_digital_sign','hr_timesheet'],
     'data' : [
 
         'security/groups_minutas.xml',
@@ -14,7 +14,8 @@
         'views/minutas_xmarts_hitos_view.xml',
         'views/ubicaciones_virtuales_views.xml',
         'reports/reporte_minuta.xml',
-        'reports/reporte_orden.xml'
+        'reports/reporte_orden.xml',
+        'wizard/account_analytic_line_wizard.xml',
     ],
     'application': False,
 }

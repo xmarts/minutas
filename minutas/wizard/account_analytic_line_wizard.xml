@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_line_wizard" model="ir.ui.view">
+        <field name="name">Informe de Inventario</field>
+        <field name="model">account.analytic.line.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Choose The Details">
+                <group>
+                    <group>
+                        <field name="minuta"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="filter_pivot" string="Aceptar" type="object" class="oe_highlight" />
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="id_wizard_report_inventario" model="ir.actions.act_window">
+        <field name="name">Informe de Inventario</field>
+        <field name="res_model">account.analytic.line.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_analytic_line_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
