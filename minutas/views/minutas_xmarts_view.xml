@@ -26,8 +26,15 @@
                     </group>
                     <group name="group1">
                         <group name="groupl1">
-                            <label for="reunion" string="Lugar de reunión"/>
-                            <div class="o_address_format" cols="2">
+                            <field name="virtual"/>
+                            <field name="ubicaciones_virtuales"
+                                attrs="{'invisible':[('virtual','=',False)]}"/>
+                            <field name="link_reunion"
+                                attrs="{'invisible':[('virtual','=',False)]}"/>
+                            <label for="reunion" string="Lugar de reunión"
+                                attrs="{'invisible':[('virtual','=',True)]}"/>
+                            <div class="o_address_format" cols="2"
+                                attrs="{'invisible':[('virtual','=',True)]}">
                                 <field name="reunion"/><br/>
                                 <field name="referencia"/>
                             </div>

@@ -9,3 +9,4 @@ from .  import minutas_xmarts_asistenciain
 from .  import minutas_xmarts_compromisos
 from .  import minutas_xmarts_estatus
 from .  import minutas_xmarts_hitos
+from .  import ubicaciones_virtuales

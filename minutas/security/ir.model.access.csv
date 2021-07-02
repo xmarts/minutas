@@ -23,3 +23,5 @@ access_minutas_xmarts_hitos,minutas.xmarts.hitos,model_minutas_xmarts_hitos,grou
 ,,,,,,,
 access_minutas_xmarts_estatus,minutas.xmarts.estatus,model_minutas_xmarts_estatus,group_user_min,1,1,1,1
 access_minutas_xmarts_estatus,minutas.xmarts.estatus,model_minutas_xmarts_estatus,group_admin_min,1,1,1,1
+,,,,,,,
+access_ubicaciones_virtuales,ubicaciones.virtuales,model_ubicaciones_virtuales,group_admin_min,1,1,1,1

@@ -36,6 +36,10 @@ class MinutasXmarts(models.Model):
     consul=fields.Binary(string='Consultor')
     company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id)
     emails = fields.Char(string='Correos', compute="_correos")
+    virtual = fields.Boolean(string="Es virtual")
+    liga_de_reunion = fields.Char(string="Link de la reunion")
+    ubicaciones_virtuales = fields.Many2one("ubicaciones.virtuales")
+    link_reunion = fields.Text(string="Link de la reunion")
 
     @api.depends('reunion', 'referencia')
     def _referencia(self):
