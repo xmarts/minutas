@@ -26,4 +26,4 @@ access_minutas_xmarts_estatus,minutas.xmarts.estatus,model_minutas_xmarts_estatu
 ,,,,,,,
 access_ubicaciones_virtuales,ubicaciones.virtuales,model_ubicaciones_virtuales,group_admin_min,1,1,1,1
 ,,,,,,,
-access_account_analytic_line_wizard,account.analytic.line.wizard,model_account_analytic_line_wizard,,1,1,1,1
+access_account_analytic_line_wizard,access.account.analytic.line.wizard,model_account_analytic_line_wizard,,1,1,1,0

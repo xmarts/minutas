@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_account_analytic_line_wizard" model="ir.ui.view">
-        <field name="name">Informe de Inventario</field>
+    <record id="account_analytic_line_wizard_form" model="ir.ui.view">
+        <field name="name">account.analytic.line.wizard.form.view</field>
         <field name="model">account.analytic.line.wizard</field>
         <field name="arch" type="xml">
-            <form string="Choose The Details">
-                <group>
-                    <group>
-                        <field name="minuta"/>
-                    </group>
-                </group>
+            <form>
+                <sheet>
+                    <notebook>
+                        <page name="tareas" string="Tareas">
+                            <field name="account_analytic_line_ids" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="user_id" invisible="1"/>
+                                    <field name="employee_id" required="1" widget="many2one_avatar_employee"/>
+                                    <field name="name" required="0"/>
+                                    <field name="unit_amount" widget="timesheet_uom" decoration-danger="unit_amount &gt; 24"/>
+                                    <field name="project_id" invisible="1"/>
+                                    <field name="task_id" invisible="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
                 <footer>
-                    <button name="filter_pivot" string="Aceptar" type="object" class="oe_highlight" />
-                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                    <button class="btn-primary" string="Guardar"  name="save_wizard" type="object"/>
+                    <button class="btn-primary" string="Cancelar" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
-    <record id="id_wizard_report_inventario" model="ir.actions.act_window">
-        <field name="name">Informe de Inventario</field>
+    <record id="account_analytic_line_wizard_act_window" model="ir.actions.act_window">
+        <field name="name">AGREGAR HORAS</field>
         <field name="res_model">account.analytic.line.wizard</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_account_analytic_line_wizard"/>
         <field name="target">new</field>
     </record>
 </odoo>

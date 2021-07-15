@@ -11,3 +11,7 @@ class MinutasXmartsActivids(models.Model):
     limite = fields.Date(string='Fecha limite', related='name.date_deadline', readonly=True)
     etapa = fields.Char(string='Etapa', related='name.stage_id.name', readonly=True)
     observaciones =  fields.Text(string='Descripcion')
+
+    def action_set_horas(self):
+        action = self.env['ir.actions.act_window']._for_xml_id('minutas.account_analytic_line_wizard_act_window')
+        return action

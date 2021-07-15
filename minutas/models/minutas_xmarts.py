@@ -40,6 +40,7 @@ class MinutasXmarts(models.Model):
     liga_de_reunion = fields.Char(string="Link de la reunion")
     ubicaciones_virtuales = fields.Many2one("ubicaciones.virtuales")
     link_reunion = fields.Text(string="Link de la reunion")
+    account_analytic_line_ids = fields.One2many('account.analytic.line', 'minutas_xmarts_id')
 
     @api.depends('reunion', 'referencia')
     def _referencia(self):
@@ -163,14 +164,4 @@ class MinutasXmarts(models.Model):
             'view_id': False,
             'target': 'new',
             'context': ctx,
-        }
-
-    def action_set_horas(self):
-        return {
-            'name': 'Registro de Horas',
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.analytic.line',
-            'view_mode': 'form',
-            'view_id': [(self.env.ref('minutas.view_account_analytic_line_wizard').id, 'form')],
-            'target': 'new',
         }
