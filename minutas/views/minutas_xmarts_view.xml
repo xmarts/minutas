@@ -35,7 +35,7 @@
                                 attrs="{'invisible':[('virtual','=',True)]}"/>
                             <div class="o_address_format" cols="2"
                                 attrs="{'invisible':[('virtual','=',True)]}">
-                                <field name="reunion"/><br/>
+                                <field name="reunion" attrs="{'required':[('virtual','=',False)]}"/><br/>
                                 <field name="referencia"/>
                             </div>
                         </group>

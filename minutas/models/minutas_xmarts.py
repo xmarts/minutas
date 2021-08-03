@@ -30,7 +30,7 @@ class MinutasXmarts(models.Model):
     compromisos_lines = fields.One2many('minutas.xmarts.compromisos', 'minuta_id', string='Tabla Compromisos')
     referencia = fields.Char(string='', compute='_referencia')
     referencia2 = fields.Char(string='', compute='_referencia2')
-    reunion = fields.Many2one('res.partner', string='Lugar de reunión', required=True)
+    reunion = fields.Many2one('res.partner', string='Lugar de reunión')
     proxima_reunion = fields.Many2one('res.partner', string='Lugar de proxima reunión')
     client=fields.Binary(string='Cliente')
     consul=fields.Binary(string='Consultor')
