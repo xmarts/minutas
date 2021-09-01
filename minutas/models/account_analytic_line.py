@@ -14,7 +14,7 @@ class AccountAnalyticLine(models.Model):
             model_wizard = self.env['account.analytic.line.wizard'].search([('task_id', '=', line.task_id.id), ('project_id', '=', line.task_id.project_id.id)], limit=1)
             if len(model_wizard) > 0:
                 id_wizard = int(model_wizard.id)
-                model = self.search([('task_id', '=', model_wizard.task_id.id), ('project_id', '=', model_wizard.task_id.project_id.id)])
+                model = self.search([('task_id', '=', model_wizard.task_id.id), ('project_id', '=', model_wizard.task_id.project_id.id), ('account_analytic_line_wizard_id', '=', False)])
                 for task in  model:
                     task.update({'account_analytic_line_wizard_id': id_wizard})
         return lines

@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, exceptions, _
 
 
 class MinutasXmartsActivids(models.Model):
@@ -13,12 +13,16 @@ class MinutasXmartsActivids(models.Model):
     observaciones =  fields.Text(string='Descripcion')
 
     def action_set_horas(self):
-        action = self.env['ir.actions.act_window']._for_xml_id('minutas.account_analytic_line_wizard_act_window')
-        model_wizard = self.env['account.analytic.line.wizard'].search([('task_id', '=', self.name.id), ('project_id', '=', self.name.project_id.id)], limit=1)
-        if len(model_wizard) == 0:
-            model_wizard = self.env['account.analytic.line.wizard'].create({'task_id': self.name.id, 'project_id': self.name.project_id.id})
-        model_hour = self.env['account.analytic.line'].search([('task_id', '=', self.name.id), ('project_id', '=', self.name.project_id.id), ('account_analytic_line_wizard_id', '=', False)])
-        for hour in  model_hour:
-            hour.update({'account_analytic_line_wizard_id': model_wizard.id})
-        action['res_id'] = model_wizard.id
-        return action
+        if self.name:
+            action = self.env['ir.actions.act_window']._for_xml_id('minutas.account_analytic_line_wizard_act_window')
+            model_wizard = self.env['account.analytic.line.wizard'].search([('task_id', '=', self.name.id), ('project_id', '=', self.name.project_id.id)], limit=1)
+            if len(model_wizard) == 0:
+                model_wizard = self.env['account.analytic.line.wizard'].create({'task_id': self.name.id, 'project_id': self.name.project_id.id})
+            model_hour = self.env['account.analytic.line'].search([('task_id', '=', self.name.id), ('project_id', '=', self.name.project_id.id), ('account_analytic_line_wizard_id', '=', False)])
+            for hour in  model_hour:
+                hour.update({'account_analytic_line_wizard_id': model_wizard.id})
+            action['res_id'] = model_wizard.id
+            return action
+        else:
+            raise exceptions.ValidationError(_("Es necesario tener una tarea seleccionada para poder registrar horas"))
+
