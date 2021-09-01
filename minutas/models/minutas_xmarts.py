@@ -40,7 +40,6 @@ class MinutasXmarts(models.Model):
     liga_de_reunion = fields.Char(string="Link de la reunion")
     ubicaciones_virtuales = fields.Many2one("ubicaciones.virtuales")
     link_reunion = fields.Text(string="Link de la reunion")
-    account_analytic_line_ids = fields.One2many('account.analytic.line', 'minutas_xmarts_id')
 
     @api.depends('reunion', 'referencia')
     def _referencia(self):
