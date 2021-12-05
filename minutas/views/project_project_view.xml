@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <act_window
+        id="action_minutas_xmarts_project"
+        name="Minutas"
+        res_model="minutas.xmarts"
+        domain="[('proyecto', '=', active_id)]"
+        view_mode="tree,form"
+    />
+
+    <!-- src_model="project.project" -->
+    <record id="action_my_minutas_xmarts" model="ir.actions.server" >
+        <field name="name">Mis Minutas</field>
+        <field name="model_id" ref="model_project_project"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.mis_minutas_search()
+        </field>
+    </record>
+
+    <record id="minutas_add_button_count_project" model="ir.ui.view">
+        <field name="name">minutas_add_button_count_project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button type="action" name="%(action_minutas_xmarts_project)d" class="oe_stat_button" icon="fa-file-text">
+                    <field name="project_minutas_count" widget="statinfo" string="Minutas"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="minutas_add_button_count_project_kanban" model="ir.ui.view">
+        <field name="name">minutas_add_button_count_project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='col-6 o_kanban_card_manage_section o_kanban_manage_reporting']" position="inside">
+                <div>
+                    <a name="%(action_minutas_xmarts_project)d" type="action">
+                        Minutas
+                    </a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

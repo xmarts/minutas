@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_minutas_xmarts_hitos">
+        <field name="name">Hitos</field>
+        <field name="res_model">minutas.xmarts.hitos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_minutas_xmarts_hitos"
+        name="Hitos"
+        action="action_minutas_xmarts_hitos"
+        parent="menu_minutas_xmarts_config"
+        sequence="40"
+    />
+    
+</odoo>
