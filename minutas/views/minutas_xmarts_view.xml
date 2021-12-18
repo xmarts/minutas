@@ -111,12 +111,12 @@
                         </page>
                         <page name="firmas" string="Firmas:">
                             <group name="group3">                                        
-                                <group name="groupasig">
+                               <!-- <group name="groupasig">
                                     <field name="client" widget="signature"/>
                                 </group>
                                 <group name="groupasig2">
                                     <field name="consul" widget="signature"/>
-                                </group>
+                                </group> -->
                             </group>                                   
                         </page>
                     </notebook>
