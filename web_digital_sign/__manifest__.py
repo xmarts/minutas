@@ -17,12 +17,6 @@
         Digital signature can be very usefull for documents.
     """,
     "images": ["static/description/Digital_Signature.jpg"],
-    "assets": {
-        'web.assets_backend' [
-            'web_digital_sign/static/src/js/digital_sing.js',
-        ],
-    },
-
     "data": [
         "views/web_digital_sign_view.xml", 
         "views/users_view.xml"
