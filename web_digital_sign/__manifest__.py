@@ -17,11 +17,14 @@
         Digital signature can be very usefull for documents.
     """,
     "images": ["static/description/Digital_Signature.jpg"],
+<<<<<<< HEAD
     "assets": {
         'web.assets_backend' [
             'web_digital_sign/static/src/js/digital_sing.js',
         ],
     },
+=======
+>>>>>>> c800b218af5a349cefd8098e42559ab948a6a49d
     "data": [
         "views/web_digital_sign_view.xml", 
         "views/users_view.xml"
@@ -30,4 +33,8 @@
     "qweb": ["static/src/xml/digital_sign.xml"],
     "installable": True,
     "auto_install": False,
+<<<<<<< HEAD
 }, 
+=======
+}
+>>>>>>> c800b218af5a349cefd8098e42559ab948a6a49d
