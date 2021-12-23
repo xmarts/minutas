@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_form_minutas" model="ir.ui.view">
+        <field name="name">Minutas Form</field>
+        <field name="model">minutas.xmarts</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Enviar por correo" name="action_minuta_sent" type="object" class="oe_highlight" />
+                    <button string="Enviar orden del día" name="action_orden_sent" type="object" class="oe_highlight" />
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet string="Minutas">
+                    <field name="company_id" invisible='1'/>
+                    <group name="group0">
+                        <group name="group_left">
+                            <field name="objetivo"/>
+                            <field name="fecha_hora"/>
+                            <field name="duracion" widget="float_time"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="proyecto"/>
+                            <separator/>
+                            <field name="hito" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group name="group1">
+                        <group name="groupl1">
+                            <field name="virtual"/>
+                            <field name="ubicaciones_virtuales"
+                                attrs="{'invisible':[('virtual', '=', False)]}"/>
+                            <field name="link_reunion"
+                                attrs="{'invisible':[('virtual', '=', False)]}"/>
+                            <label for="reunion" string="Lugar de reunión"
+                                attrs="{'invisible':[('virtual', '=', True)]}"/>
+                            <div class="o_address_format" cols="2"
+                                attrs="{'invisible':[('virtual', '=', True)]}">
+                                <field name="reunion" attrs="{'required':[('virtual', '=', False)]}"/><br/>
+                                <field name="referencia"/>
+                            </div>
+                        </group>
+                        <group name="groupr1">
+                            <label for="proxima_reunion" string="Lugar de próxima reunión"/>
+                            <div class="o_address_format" cols="2">
+                                <field name="proxima_reunion"/><br/>
+                                <field name="referencia2"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group name="group2">
+                        <group name="groupl2">
+                            <field name="fecha_proxima_reunion"/>
+                        </group>
+                        <group name="groupr2">
+                            <field name="fin_proxima_reunion"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="asistencia" string="Asistentes Internos:">
+                            <field name="asistenciain_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="puesto"/>
+                                    <field name="email"/>
+                                    <field name="minuta" type="checkbox"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="asistencia" string="Asistentes Externos:">
+                            <field name="asistencia_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="empresa"/>
+                                    <field name="puesto"/>
+                                    <field name="email"/>
+                                    <field name="minuta" type="checkbox"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="actividades" string="Actividades realizadas:">
+                            <field name="activids_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name" domain="[('project_id', '=', parent.proyecto)]"/>
+                                    <button type="object" string="Registrar horas" name="action_set_horas"/>
+                                    <field name="asignado"/>
+                                    <field name="limite"/>
+                                    <field name="etapa"/>
+                                    <field name="observaciones"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="compromisos" string="Compromisos:">
+                            <field name="compromisos_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name" domain="[('project_id', '=', parent.proyecto)]"/>
+                                    <field name="asignado"/>
+                                    <field name="limite"/>
+                                    <field name="etapa"/>
+                                    <field name="observaciones"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="actividades" string="Actividades extra:">
+                            <field name="actividades_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="firmas" string="Firmas:">
+                            <group name="group3">                                        
+                               <!-- <group name="groupasig">
+                                    <field name="client" widget="signature"/>
+                                </group>
+                                <group name="groupasig2">
+                                    <field name="consul" widget="signature"/>
+                                </group> -->
+                            </group>                                   
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_minutas_xmarts" model="ir.ui.view">
+        <field name="name">Minutas Tree</field>
+        <field name="model">minutas.xmarts</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="proyecto" />
+                <field name="objetivo" />
+                <field name="status" />
+                <field name="fecha_hora" />
+                <field name="duracion"  widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_minutas_xmarts">
+        <field name="name">Minutas</field>
+        <field name="res_model">minutas.xmarts</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_minutas_xmarts"
+        name="Minutas"
+        sequence="20"
+        parent="project.menu_main_pm"
+    />
+    <menuitem
+        id="menu_minutas_xmarts_minutas"
+        name="Minutas"
+        sequence="28"
+        action="action_minutas_xmarts"
+        parent="menu_minutas_xmarts"
+    />
+    <menuitem
+        id="menu_mis_minutas_xmarts_minutas"
+        name="Mis Minutas"
+        sequence="29"
+        action="action_my_minutas_xmarts"
+        parent="menu_minutas_xmarts"
+    />
+    <menuitem
+        id="menu_minutas_xmarts_config"
+        name="Configuracion"
+        sequence="30"
+        parent="menu_minutas_xmarts"
+    />
+    
+</odoo>

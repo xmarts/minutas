@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_ubicaciones_virtuales">
+        <field name="name">Ubicaciones virtuales</field>
+        <field name="res_model">ubicaciones.virtuales</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_ubicaciones_virtuales"
+        name="Ubicaciones virtuales"
+        action="action_ubicaciones_virtuales"
+        parent="menu_minutas_xmarts_config"
+        sequence="45"
+    />
+    
+</odoo>
