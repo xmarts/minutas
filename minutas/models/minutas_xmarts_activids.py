@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from odoo import models, fields, exceptions, _
+from odoo import api, exceptions, fields, models, _
 
 
 class MinutasXmartsActivids(models.Model):
@@ -19,8 +19,8 @@ class MinutasXmartsActivids(models.Model):
     )
     asignado = fields.Char(
         string="Asignado a", 
-        related='name.user_ids.name', 
-        readonly=True
+    #   related='name.user_ids.name', 
+        compute="_compute_get_asignado"
     )
     limite = fields.Date(
         string="Fecha límite", 
@@ -33,6 +33,12 @@ class MinutasXmartsActivids(models.Model):
         readonly=True
     )
     observaciones = fields.Text(string="Descripción")
+
+    @api.depends('name.user_ids')
+    def _compute_get_asignado(self):
+        for record in self:
+            if record.name.user_ids:
+                record.asignado = ",".join(record.name.user_ids.mapped('name'))
 
     def action_set_horas(self):
         if self.name:

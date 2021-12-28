@@ -208,7 +208,7 @@
                                                 <span t-field="acl.name.name" />
                                             </td>
                                             <td style="border: 1px solid black;">
-                                                <span t-field="acl.name.user_id.name" />
+                                                <span t-field="acl.name.user_ids" />
                                             </td>
                                             <td style="border: 1px solid black;">
                                                 <span t-field="acl.name.date_deadline" />
@@ -227,7 +227,7 @@
                                                 <span t-field="acl.name.name" />
                                             </td>
                                             <td style="border: 1px solid black;">
-                                                <span t-field="acl.name.user_id.name" />
+                                                <span t-field="acl.asignado" />
                                             </td>
                                             <td style="border: 1px solid black;">
                                                 <span t-field="acl.name.date_deadline" />
@@ -274,7 +274,7 @@
                                                 <span t-field="col.name.name" />
                                             </td>
                                             <td style="border: 1px solid black;">
-                                                <span t-field="col.name.user_id.name" />
+                                                <span t-field="col.asignado" />
                                             </td>
                                             <td style="border: 1px solid black;">
                                                 <span t-field="col.name.date_deadline" />
@@ -293,7 +293,7 @@
                                                 <span t-field="col.name.name" />
                                             </td>
                                             <td style="border: 1px solid black; ">
-                                                <span t-field="col.name.user_id.name" />
+                                                <span t-field="col.name.user_ids" />
                                             </td>
                                             <td style="border: 1px solid black; ">
                                                 <span t-field="col.name.date_deadline" />
