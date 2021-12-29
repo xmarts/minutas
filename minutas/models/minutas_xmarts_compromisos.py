@@ -37,6 +37,7 @@ class MinutasXmartsCompromisos(models.Model):
     @api.depends('name.user_ids')
     def _compute_get_asignado(self):
         for record in self:
+            record.asignado = ""
             if record.name.user_ids:
                 record.asignado = ",".join(record.name.user_ids.mapped('name'))
 

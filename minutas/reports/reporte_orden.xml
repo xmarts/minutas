@@ -190,7 +190,7 @@
                                                 <span t-field="acl.name.name" />
                                             </td>
                                             <td style="border: 1px solid black;">
-                                                <span t-field="acl.name.user_ids" />
+                                                <span t-field="acl.asignado" />
                                             </td>
                                             <td style="border: 1px solid black; ">
                                                 <span t-field="acl.name.date_deadline" />
@@ -206,7 +206,7 @@
                                                 <span t-field="acl.name.name" />
                                             </td>
                                             <td style="border: 1px solid black;">
-                                                <span t-field="acl.name.user_ids" />
+                                                <span t-field="acl.asignado" />
                                             </td>
                                             <td style="border: 1px solid black;">
                                                 <span t-field="acl.name.date_deadline" />
