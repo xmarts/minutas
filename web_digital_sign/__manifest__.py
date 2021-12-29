@@ -18,8 +18,8 @@
     """,
     "images": ["static/description/Digital_Signature.jpg"],
     "data": [
-        "views/web_digital_sign_view.xml", 
-        "views/users_view.xml"
+        # "views/web_digital_sign_view.xml", 
+        # "views/users_view.xml"
     ],
     "website": "http://www.serpentcs.com",
     "qweb": ["static/src/xml/digital_sign.xml"],
