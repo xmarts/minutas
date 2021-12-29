@@ -22,7 +22,7 @@
         # "views/users_view.xml"
     ],
     "website": "http://www.serpentcs.com",
-    "qweb": ["static/src/xml/digital_sign.xml"],
+    # "qweb": ["static/src/xml/digital_sign.xml"],
     "installable": True,
     "auto_install": False,
 }

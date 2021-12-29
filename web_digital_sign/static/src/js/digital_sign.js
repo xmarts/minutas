@@ -1,3 +1,4 @@
+/*
 odoo.define('web_digital_sign.web_digital_sign', function (require) {
     "use strict";
 
@@ -158,3 +159,4 @@ odoo.define('web_digital_sign.web_digital_sign', function (require) {
 
 
 });
+*/
