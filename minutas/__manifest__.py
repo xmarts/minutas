@@ -36,6 +36,7 @@
         'views/minutas_xmarts_hitos_view.xml',
         'views/ubicaciones_virtuales_views.xml',
         'views/project_task_view.xml',
+        'views/project_update_view.xml',
         'reports/reporte_minuta.xml',
         'reports/reporte_orden.xml',
         'wizard/account_analytic_line_wizard.xml',

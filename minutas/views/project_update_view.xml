@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="project_update_inherit_view_form" model="ir.ui.view">
+        <field name="name">project.update.inherit.view.form</field>
+        <field name="model">project.update</field>
+        <field name="inherit_id" ref="project.project_update_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[2]" position="after">
+                <field name="company_id" invisible='1'/>
+                <group name="group_left_1" string="Minutas" attrs="{'invisible': [('status', '!=', 'minute')]}">
+                    <field name="minuta_name"/>
+                    <field name="objetivo"/>
+                    <field name="fecha_hora"/>
+                    <field name="duracion" widget="float_time"/>
+                    <field name="proyecto"/>
+                    <field name="hito" widget="many2many_tags"/>
+                    <field name="virtual"/>
+                    <field name="ubicaciones_virtuales"
+                           attrs="{'invisible':[('virtual', '=', False)]}"/>
+                    <field name="link_reunion"
+                           attrs="{'invisible':[('virtual', '=', False)]}"/>
+                    <label for="reunion" string="Lugar de reunión"
+                           attrs="{'invisible':[('virtual', '=', True)]}"/>
+                    <div class="o_address_format" cols="2"
+                         attrs="{'invisible':[('virtual', '=', True)]}">
+                        <field name="reunion" attrs="{'required':[('virtual', '=', False)]}"/><br/>
+                        <field name="referencia"/>
+                    </div>
+                    <label for="proxima_reunion" string="Lugar de próxima reunión"/>
+                    <div class="o_address_format" cols="2">
+                        <field name="proxima_reunion"/><br/>
+                        <field name="referencia2"/>
+                    </div>
+                    <field name="fecha_proxima_reunion"/>
+                    <field name="fin_proxima_reunion"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='description']" position="after">
+                        <page name="asistencia" string="Asistentes Internos:" attrs="{'invisible': [('status', '!=', 'minute')]}">
+                            <field name="asistenciain_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="puesto"/>
+                                    <field name="email"/>
+                                    <field name="minuta" type="checkbox"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="asistencia" string="Asistentes Externos:" attrs="{'invisible': [('status', '!=', 'minute')]}">
+                            <field name="asistencia_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="empresa"/>
+                                    <field name="puesto"/>
+                                    <field name="email"/>
+                                    <field name="minuta" type="checkbox"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="actividades" string="Actividades realizadas:" attrs="{'invisible': [('status', '!=', 'minute')]}">
+                            <field name="activids_lines" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="name" domain="[('project_id', '=', parent.proyecto)]"/>
+                                    <button type="object" string="Registrar horas" name="action_set_horas"/>
+                                    <field name="asignado"/>
+                                    <field name="limite"/>
+                                    <field name="etapa"/>
+                                    <field name="observaciones"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="firmas" string="Firmas:" attrs="{'invisible': [('status', '!=', 'minute')]}">
+                            <group name="group3">                                        
+                               <!-- <group name="groupasig">
+                                    <field name="client" widget="signature"/>
+                                </group>
+                                <group name="groupasig2">
+                                    <field name="consul" widget="signature"/>
+                                </group> -->
+                            </group>                                   
+                        </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

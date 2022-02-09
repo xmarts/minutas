@@ -40,5 +40,3 @@ class MinutasXmartsCompromisos(models.Model):
             record.asignado = ""
             if record.name.user_ids:
                 record.asignado = ",".join(record.name.user_ids.mapped('name'))
-
-
