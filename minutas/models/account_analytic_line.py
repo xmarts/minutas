@@ -10,6 +10,10 @@ class AccountAnalyticLine(models.Model):
         string="rel", 
         copy=False
     )
+    update_id = fields.Many2one(
+        'project.update', 
+        string="Actualización"
+    )
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -1,5 +1,6 @@
 from odoo import api, fields, models, time, _
 
+
 STATUS_COLOR = {
     'on_track': 20,  # green / success
     'at_risk': 2,  # orange
@@ -12,9 +13,9 @@ STATUS_COLOR = {
 class ProjectUpdate(models.Model):
     _inherit='project.update'
 
-    def _get_default_minuta_name(self):
+    def _get_default_name(self):
         cr = self.env.cr
-        cr.execute('select "id" from "minutas_xmarts" order by "id" desc limit 1')
+        cr.execute('select "id" from "project_update" order by "id" desc limit 1')
         id_returned = cr.fetchone()
         if id_returned == None:
             id_returned = (0,)
@@ -26,27 +27,22 @@ class ProjectUpdate(models.Model):
         ],
         ondelete={'minute': 'cascade'}
     )
-    color = fields.Integer(compute='_compute_color')
     objetivo = fields.Char(
-        string="Objetivo", 
-        required=True
+        string="Objetivo"
     )
     fecha_hora = fields.Datetime(
-        string="Fecha y Hora", 
-        required=True
+        string="Fecha y Hora"
     )
     proyecto = fields.Many2one(
         'project.project', 
-        string="Proyecto", 
-        required=True
+        string="Proyecto"
     )
     minuta_name = fields.Char(
-        string="Minuta", 
-        default=_get_default_minuta_name
+        string="Minuta",
+        default=_get_default_name
     )
     duracion = fields.Float(
-        string="Duración (HH:MM)", 
-        required=True, 
+        string="Duración (HH:MM)",
         default=1
     )
     hito = fields.Many2many(
@@ -110,6 +106,11 @@ class ProjectUpdate(models.Model):
     liga_de_reunion = fields.Char(string="Link de la reunión")
     ubicaciones_virtuales = fields.Many2one('ubicaciones.virtuales')
     link_reunion = fields.Text(string="Link de la reunión")
+    timesheet_ids = fields.One2many(
+        'account.analytic.line', 
+        'update_id', 
+        string="Hojas de horas"
+    )
 
     @api.depends('reunion', 'referencia')
     def _referencia(self):
