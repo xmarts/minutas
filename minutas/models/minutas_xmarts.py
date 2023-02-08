@@ -4,7 +4,7 @@ from odoo import models, fields, api, _, time
 
 class MinutasXmarts(models.Model):
     _name = 'minutas.xmarts'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     def _get_default_name(self):
         cr = self.env.cr
@@ -43,6 +43,9 @@ class MinutasXmarts(models.Model):
         string="Duración (HH:MM)", 
         required=True, 
         default=1
+    )
+    hora_fin = fields.Datetime(
+        string = "Hora Finalizacion",
     )
     hito = fields.Many2many(
         comodel_name='minutas.xmarts.hitos', 

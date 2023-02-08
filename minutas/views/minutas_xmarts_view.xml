@@ -17,7 +17,7 @@
                         <group name="group_left">
                             <field name="objetivo"/>
                             <field name="fecha_hora"/>
-                            <field name="duracion" widget="float_time"/>
+                            <field name="hora_fin"/>
                         </group>
                         <group name="group_right">
                             <field name="proyecto"/>
@@ -36,25 +36,25 @@
                                 attrs="{'invisible':[('virtual', '=', True)]}"/>
                             <div class="o_address_format" cols="2"
                                 attrs="{'invisible':[('virtual', '=', True)]}">
-                                <field name="reunion" attrs="{'required':[('virtual', '=', False)]}"/><br/>
+                                <field name="reunion"/><br/>
                                 <field name="referencia"/>
                             </div>
                         </group>
-                        <group name="groupr1">
+                        <!-- <group name="groupr1">
                             <label for="proxima_reunion" string="Lugar de próxima reunión"/>
                             <div class="o_address_format" cols="2">
                                 <field name="proxima_reunion"/><br/>
                                 <field name="referencia2"/>
                             </div>
-                        </group>
+                        </group> -->
                     </group>
                     <group name="group2">
                         <group name="groupl2">
                             <field name="fecha_proxima_reunion"/>
                         </group>
-                        <group name="groupr2">
+                        <!-- <group name="groupr2">
                             <field name="fin_proxima_reunion"/>
-                        </group>
+                        </group> -->
                     </group>
                     <notebook>
                         <page name="asistencia" string="Asistentes Internos:">
@@ -124,11 +124,11 @@
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
                     <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids"/>
                 </div>
             </form>
         </field>
     </record>
-
     <record id="view_tree_minutas_xmarts" model="ir.ui.view">
         <field name="name">Minutas Tree</field>
         <field name="model">minutas.xmarts</field>
@@ -139,15 +139,88 @@
                 <field name="objetivo" />
                 <field name="status" />
                 <field name="fecha_hora" />
-                <field name="duracion"  widget="float_time"/>
+                <field name="hora_fin"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_pivot_minutas_xmarts" model="ir.ui.view">
+        <field name="name">Minutas Pivot</field>
+        <field name="model">minutas.xmarts</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoices Analysis" sample="1">
+                <field name="name" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_xmarts_minutas_kanban" model="ir.ui.view">
+        <field name="name">minutas.kanban</field>
+        <field name="model">minutas.xmarts</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_card_header_title mb16">
+                                <div class="o_primary">
+                                    <strong><t t-esc="record.name.value"/></strong>
+                                </div>
+                            </div>
+                            <div class="o_kanban_manage_button_section">
+                                <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-6 o_kanban_primary_left">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong><span>Inicio:</span></strong>
+                                            </div>
+                                            <div class="col-6">
+                                                <span><field name="fecha_hora"/></span>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong><span>Fin:</span></strong>
+                                            </div>
+                                            <div class="col-6">
+                                                <span><field name="hora_fin"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 o_kanban_primary_right">
+        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="minutas_xmarts_calendar_view" model="ir.ui.view">
+        <field name="name">minutas.xmarts.calendar</field>
+        <field name="model">minutas.xmarts</field>
+        <field name="arch" type="xml">
+            <calendar string="Minutas" date_start="fecha_hora" date_stop="hora_fin" event_limit="5" quick_add="False">
+                <field name="name"/>
+                <field name="proyecto" filters="1"/>
+                <field name="objetivo"/>
+            </calendar>
         </field>
     </record>
 
     <record model="ir.actions.act_window" id="action_minutas_xmarts">
         <field name="name">Minutas</field>
         <field name="res_model">minutas.xmarts</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form,pivot,calendar</field>
     </record>
 
     <menuitem
