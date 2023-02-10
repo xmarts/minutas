@@ -45,7 +45,7 @@
                                         Duración:
                                     </th>
                                     <td>
-                                        <span t-field="o.duracion"  t-field-options='{"widget": "float_time"}' />
+                                        <span t-field="o.hora_fin" />
                                     </td>
                                     <td></td>
                                     <th>
