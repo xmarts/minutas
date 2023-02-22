@@ -6,6 +6,7 @@
         name="Minutas"
         res_model="minutas.xmarts"
         domain="[('proyecto', '=', active_id)]"
+        context="{'default_proyecto': active_id}"
         view_mode="tree,form"
     />
 

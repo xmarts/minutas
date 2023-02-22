@@ -27,7 +27,7 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <th>
-                                        Fecha:
+                                        Fecha inicio:
                                     </th>
                                     <td>
                                         <span t-field="o.fecha_hora" />
@@ -42,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        Duración:
+                                        Fecha fin:
                                     </th>
                                     <td>
                                         <span t-field="o.hora_fin" />
@@ -61,12 +61,22 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
-                                        Sede:
-                                    </th>
-                                    <td>
-                                        <span t-field="o.referencia" />
-                                    </td>
+                                    <t t-if="o.virtual == False">
+                                        <th>
+                                            Sede:
+                                        </th>
+                                        <td>
+                                            <span t-field="o.referencia" />
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <th>
+                                            <span t-esc="o.ubicaciones_virtuales.name"/>:
+                                        </th>
+                                        <td>
+                                            <span t-field="o.link_reunion" />
+                                        </td>
+                                    </t>s
                                     <td></td>
                                 </tr>
                             </table>
@@ -266,24 +276,24 @@
 
         <record id="minuta_email_orden" model="mail.template">
             <field name="name">Email Orden del Día</field>
-            <field name="email_from">${object.company_id and object.company_id.email}</field>
-            <field name="subject">Orden del día ${object.name}</field>
-            <field name="email_to">${object.emails}</field>
-            <field name="lang">${object.lang}</field>
+            <field name="email_from">{{object.company_id and object.company_id.email}}</field>
+            <field name="subject">Orden del día {{object.name}}</field>
+            <field name="email_to">{{object.emails}}</field>
+            <!-- <field name="lang">${object.lang}</field> -->
             <field name="model_id" ref="minutas.model_minutas_xmarts"/>
             <field name="auto_delete" eval="True"/>
             <field name="report_template" ref="minutas.reporte_orden_dia"/>
-            <field name="report_name">${object.name}_Orden</field>
+            <field name="report_name">{{object.name}}_Orden</field>
             <field name="body_html" type="html">
                 <p>Orden del día</p>
-                <p>Este es un recordatorio para revisar asuntos relacionados con el proyecto ${object.proyecto.name}</p>
+                <p>Este es un recordatorio para revisar asuntos relacionados con el proyecto <span t-out="(object.fecha_hora or ' ')"/></p>
                 <table>
                     <tr>
                         <th style="border: 1px solid black; background-color: white; width: 15%;">
                             Fecha:
                         </th>
                         <td style="border: 1px solid black; width: 35%;">
-                            <span>${object.fecha_hora}</span>
+                            <span t-out="(object.fecha_hora or ' ')"/>
                         </td>
                     </tr>
                     <tr><td colspan="2"><br/></td></tr>
@@ -292,7 +302,7 @@
                             Proyecto:
                         </th>
                         <td style="border: 1px solid black; width: 25%;">
-                            <span>${object.proyecto.name}</span>
+                            <span t-out="(object.proyecto.name or '')"/>
                         </td>
                     </tr>
                     <tr><td colspan="2"><br/></td></tr>
@@ -301,7 +311,7 @@
                             Sede:
                         </th>
                         <td style="border: 1px solid black;">
-                            <span>${object.referencia}</span>
+                            <span t-out="object.referencia or ' ' "/>
                         </td>
                     </tr>
                 </table>
@@ -310,24 +320,24 @@
 
         <record id="minuta_email_minuta" model="mail.template">
             <field name="name">Email Minuta</field>
-            <field name="email_from">${object.company_id and object.company_id.email}</field>
-            <field name="subject">${object.name}</field>
-            <field name="email_to">${object.emails}</field>
-            <field name="lang">${object.lang}</field>
+            <field name="email_from">{{ object.company_id and object.company_id.email }}</field>
+            <field name="subject">{{ object.name }}</field>
+            <field name="email_to">{{ object.emails }}</field>
+            <!-- <field name="lang">${{object.lang}}</field> -->
             <field name="model_id" ref="minutas.model_minutas_xmarts"/>
             <field name="auto_delete" eval="True"/>
             <field name="report_template" ref="minutas.reporte_minutas"/>
-            <field name="report_name">${object.name}_Minuta</field>
+            <field name="report_name">{{object.name}}_Minuta</field>
             <field name="body_html" type="html">
                 <p>Minuta</p>
-                <p>Minuta ${object.name} relacionada al proyecto ${object.proyecto.name}</p>
+                <p>Minuta <span t-out="(object.name or '')"/> relacionada al proyecto <span t-out="(object.proyecto.name or '')"/></p>
                 <table>
                     <tr>
                         <th style="border: 1px solid black; background-color: white; width: 15%;">
                             Fecha:
                         </th>
                         <td style="border: 1px solid #CCCCCC; width: 35%;">
-                            <span>${object.fecha_hora}</span>
+                            <span t-out="(object.fecha_hora or ' ')"/>
                         </td>
                     </tr>
                     <tr><td colspan="2"><br/></td></tr>
@@ -336,7 +346,7 @@
                             Proyecto:
                         </th>
                         <td style="border: 1px solid #CCCCCC; width: 25%;">
-                            <span>${object.proyecto.name}</span>
+                            <span t-out="(object.proyecto.name or '')"/>
                         </td>
                     </tr>
                     <tr><td colspan="2"><br/></td></tr>
@@ -345,7 +355,7 @@
                             Sede:
                         </th>
                         <td style="border: 1px solid #CCCCCC;">
-                            <span>${object.referencia}</span>
+                            <span t-out="object.referencia or ' ' "/>
                         </td>
                     </tr>
                 </table>

@@ -31,10 +31,11 @@ class hrProjectMinutas(models.Model):
         ])
         action = {
             'type': 'ir.actions.act_window',
-            'view_mode': 'kanban,tree,form,pivot,calendar',
+            'view_mode': 'tree,form,kanban,pivot,calendar',
             'name': _('Minutas del proyecto'),
             'res_model': 'minutas.xmarts',
             'domain': [('id', 'in', minutas.ids)],
+            'context': {'default_proyecto': self.id}
         }
         return action
     def minutas_get_action(self):
@@ -79,9 +80,10 @@ class hrProjectMinutas(models.Model):
             lista.append(l[0])
         action = {
             'type': 'ir.actions.act_window',
-            'view_mode': 'kanban,tree,form,pivot,calendar',
+            'view_mode': 'tree,form,kanban,pivot,calendar',
             'name': _('Minutas del proyecto'),
             'res_model': 'minutas.xmarts',
             'domain': [('id', 'in', lista)],
+            'context': {'default_proyecto': self.id}
         }
         return action

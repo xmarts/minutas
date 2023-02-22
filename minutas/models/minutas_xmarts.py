@@ -109,6 +109,14 @@ class MinutasXmarts(models.Model):
     ubicaciones_virtuales = fields.Many2one('ubicaciones.virtuales')
     link_reunion = fields.Text(string="Link de la reunión")
 
+    client_sing = fields.Binary(
+        string="Firma del Cliente"
+    )
+
+    xmarts_sing = fields.Binary(
+        string="Firma Xmarts"
+    )
+
     @api.depends('reunion', 'referencia')
     def _referencia(self):
         for rec in self:

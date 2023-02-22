@@ -27,7 +27,7 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <th>
-                                        Fecha:
+                                        Fecha inicio:
                                     </th>
                                     <td>
                                         <span t-field="o.fecha_hora" />
@@ -42,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        Duración:
+                                        Fecha Fin:
                                     </th>
                                     <td>
                                         <span t-field="o.hora_fin" />
@@ -61,12 +61,22 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
-                                        Sede:
-                                    </th>
-                                    <td>
-                                        <span t-field="o.referencia" />
-                                    </td>
+                                    <t t-if="o.virtual == False">
+                                        <th>
+                                            Sede:
+                                        </th>
+                                        <td>
+                                            <span t-field="o.referencia" />
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <th>
+                                            <span t-esc="o.ubicaciones_virtuales.name"/>:
+                                        </th>
+                                        <td>
+                                            <span t-field="o.link_reunion" />
+                                        </td>
+                                    </t>
                                     <td></td>
                                     <th>
                                         Próxima reunión:
@@ -349,15 +359,42 @@
                                 </t>
                             </table>
                             <br/>
+                            <div class="row">
+                                <div class="col-6 d-flex justify-content-center">
+                                    <img t-if="o.client_sing" width="370" height="100" t-att-src="image_data_uri(o.client_sing)"/>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center">
+                                    <img t-if="o.xmarts_sing" width="370" height="100" t-att-src="image_data_uri(o.xmarts_sing)"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-center">
+                                    ____________________<br/>
+                                    Cliente
+                                </div>
+                                <div class="col-6 text-center">
+                                    ____________________<br/>
+                                    Xmarts
+                                </div>
+                            </div>
                             <table class="table">
-                                <tr>
+                                <!-- <tr>
                                     <td style="border-top: 0px solid white;"><img t-attf-src="data:image/*;base64,{{o.client}}" style="text-align:center;"/></td>
                                     <td style="border-top: 0px solid white;"><img t-attf-src="data:image/*;base64,{{o.consul}}" style="text-align:center;"/></td>
-                                </tr>
-                                <tr>
+                                </tr> -->
+                                <!-- <tr>
+                                    <td>
+                                        <img t-if="o.client_sing" width="350" height="150" t-att-src="image_data_uri(o.client_sing)"/>
+                                    </td>
+                                    <td>
+                                        <img t-if="o.xmarts_sing" width="350" height="150" t-att-src="image_data_uri(o.xmarts_sing)"/>
+                                    </td>
+                                </tr> -->
+                                <!-- <tr>
                                     <td style="border-top: 0px solid white; text-align:center; ">Cliente</td>
-                                    <td style="border-top: 0px solid white; text-align:center;">Consultor</td> 
-                                </tr>
+                                    <td style="border-top: 0px solid white; text-align:center;">Xmarts</td> 
+                                </tr> -->
+
                             </table>
                         </div>
                     </t>               

@@ -110,18 +110,18 @@
                             </field>
                         </page>
                         <page name="firmas" string="Firmas:">
-                            <group name="group3">                                        
-                               <!-- <group name="groupasig">
-                                    <field name="client" widget="signature"/>
+                            <group>                                        
+                               <group string="Cliente">
+                                    <field name="client_sing" widget="signature"/>
                                 </group>
-                                <group name="groupasig2">
-                                    <field name="consul" widget="signature"/>
-                                </group> -->
+                                <group string="Xmarts">
+                                    <field name="xmarts_sing" widget="signature"/>
+                                </group>
                             </group>                                   
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
+                <div class="oe_chatter">    
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
                     <field name="message_ids" widget="mail_thread"/>
                     <field name="activity_ids"/>
@@ -220,7 +220,7 @@
     <record model="ir.actions.act_window" id="action_minutas_xmarts">
         <field name="name">Minutas</field>
         <field name="res_model">minutas.xmarts</field>
-        <field name="view_mode">kanban,tree,form,pivot,calendar</field>
+        <field name="view_mode">tree,form,kanban,pivot,calendar</field>
     </record>
 
     <menuitem
