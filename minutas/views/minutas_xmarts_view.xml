@@ -112,7 +112,7 @@
                         <page name="firmas" string="Firmas:">
                             <group>                                        
                                <group string="Cliente">
-                                    <field name="client_sing" widget="signature"/>
+                                    <field name="signature" widget="signature"/>
                                 </group>
                                 <group string="Xmarts">
                                     <field name="xmarts_sing" widget="signature"/>

@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <template id="minutas.signature_form_minuta" name="Ask Signature">
+        <div class="o_minuta_signature_form"
+            t-att-data-call-url="call_url"
+            t-att-data-default-name="default_name"
+            t-att-data-mode="mode"
+            t-att-data-send-label="send_label"
+            t-att-data-signature-ratio="signature_ratio"
+            t-att-data-signature-type="signature_type" 
+            t-att-data-font-color="font_color"
+            />
+    </template>
+
+   <template id="portal_my_home_minutas" name="Minutas" customize_show="True" 
+    inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Minutas</t>
+                <t t-set="url" t-value="'/my/minutas'"/>
+                <t t-set="placeholder_count" t-value="'minutas_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_menu_minutas" name="Portal layout : sales menu entries" 
+    inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'minutas' or minuta_xmarts" t-attf-class="breadcrumb-item #{'active' if not minuta_xmarts else ''}">
+                <a t-if="minuta_xmarts" t-attf-href="/my/minutas?{{ keep_query() }}">Minutas</a>
+                <t t-else="">Minutas</t>
+            </li>
+            <li t-if="minuta_xmarts" class="breadcrumb-item active">
+                <span t-field="minuta_xmarts.name"/>
+                <t t-out="minuta_xmarts.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_minutas" name="Minutas">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Minutas</t>
+            </t>
+            <t t-if="minutas" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            <span class='d-none d-md-inline'>Minutas #</span>
+                            <span class='d-block d-md-none'>Ref.</span>
+                        </th>
+                        <th class="text-end">Fecha Minuta</th>
+                        <th class="text-center">Estado</th>
+                        
+
+                    </tr>
+                </thead>
+                <t t-foreach="minutas" t-as="minuta">
+                    <tr>
+                        <td><a t-att-href="minuta.get_portal_url()"><t t-out="minuta.name"/></a></td>
+                        <td class="text-end">
+                            <span t-field="minuta.fecha_hora" t-options="{'widget': 'date'}"/>&amp;nbsp;
+                            <span class='d-none d-md-inline' t-field="minuta.fecha_hora" t-options="{'time_only': True}"/>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge rounded-pill text-bg-success">
+                                <i class="fa fa-fw fa-check" role="img" aria-label="Done" title="Done"/><t t-esc="minuta.status"/>
+                            </span>
+                        </td>
+                        <!-- <td class="text-end"><span t-field="minuta.amount_total"/></td> -->
+                    </tr>
+                </t>
+            </t>
+            <p>Prueba de las Minutas</p>
+        </t>
+    </template>
+
+    <template id="minuta_xmarts_portal_template" name="Minutas" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert" groups="minutas.group_user_min">
+                <!-- Uses backend_url provided in rendering values -->
+                <t t-call="portal.portal_back_in_edit_mode"/>
+            </t>
+
+            <div class="row mt16 o_portal_sale_sidebar">
+                <!-- Sidebar -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                    <t t-set="title">
+                        <h2 class="mb-0"><b t-field="minuta_xmarts.name" data-id="name_minuta"/> </h2>
+                    </t>
+                    
+                    <t t-set="entries">
+                        
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item d-grid align-content-start">
+                                <a role="button" class="btn btn-primary mb8" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
+                                    <i class="fa fa-check"/><t t-if="minuta_xmarts.client_has_sing == False"> Firmado </t><t t-else=""> Aceptar  &amp; Firmar</t>
+                                </a>
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group flex-grow-1 me-1 mb-1">
+                                        <a class="btn btn-secondary o_download_btn" t-att-href="minuta_xmarts.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Descargar PDF</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary o_print_btn o_portal_invoice_print" t-att-href="minuta_xmarts.get_portal_url(report_type='pdf')" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Imprimir PDF</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="navspy list-group-item ps-0 flex-grow-1" t-ignore="true" role="complementary">
+                                <ul class="nav flex-column bs-sidenav"></ul>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+
+                <!-- Page content -->
+                <div id="quote_content_minuta" class="col-12 col-lg justify-content-end">
+
+                    <div role="dialog" class="modal fade" id="modalaccept">
+                        <div class="modal-dialog">
+                            <form id="accept" method="POST" t-att-data-order-id="minuta_xmarts.id" t-att-data-token="minuta_xmarts.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Firmar</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url" t-value="minuta_xmarts.get_portal_url(suffix='/accept')"/>
+                                        <t t-set="default_name" t-value="minuta_xmarts.partner_id.name"/>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+                    </div>
+                    <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}" id="portal_minuta_content">
+                        <div t-call="minutas.xmarts_minutas_portal_content"/>
+                    </div>
+                    <!-- chatter -->
+                    <div id="xmarts_minutas_communication" class="mt-4">
+                        <h2>History</h2>
+                        <t t-call="portal.message_thread"/>
+                    </div>
+                </div>
+                <!-- // #quote_content -->
+            </div>
+        </xpath>
+    </template>
+    <template id="xmarts_minutas_portal_content" name="Minutas_content">
+        <!-- Intro -->
+        <div id="introduction_minuta" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+          <h2 class="my-0">
+                <em t-out="minuta_xmarts.name"/>
+            </h2>
+        </div>
+
+        <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+            <!-- Informations -->
+            <div id="informations">
+                <div class="row" id="so_date">
+                    <div class="mb-3 col-6">
+                        <strong>Fecha y Hora:</strong>
+                        <span t-field="minuta_xmarts.fecha_hora" t-options='{"widget": "datetime"}'/>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <strong>Objetivo: </strong> <span t-field="minuta_xmarts.objetivo"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <t t-if="minuta_xmarts.virtual == True">
+                            <strong>URL reunion: </strong><span t-field="minuta_xmarts.link_reunion"/>
+                        </t>
+                        <t t-else="">
+                            <strong>Lugar de reunion: </strong><span t-field="minuta_xmarts.reunion.name"/>
+                            <span> </span>
+                            <address t-field="minuta_xmarts.reunion"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                        </t>
+                    </div>
+                    <div class="col-6">
+                        <strong>Hito: </strong><t t-foreach="minuta_xmarts.hito" t-as="hito"><span t-esc="hito.name"/></t>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Interno</strong></h3>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-1">
+
+                                    </div>
+                                    <div class="col-10 p-1 mb-2 bg-secondary text-white">
+                                        Nombre
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-10 p-1 mb-2 bg-secondary text-white">
+                                        Puesto
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="minuta_xmarts.asistenciain_lines" t-as="line">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-1">
+
+                                        </div>
+                                        <div class="col-10">
+                                            <t t-esc="line.name.name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <t t-esc="line.puesto"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Externo</strong></h3>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-1">
+
+                                    </div>
+                                    <div class="col-10 p-1 mb-2 bg-secondary text-white">
+                                        Nombre
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-10 p-1 mb-2 bg-secondary text-white">
+                                        Empresa
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="minuta_xmarts.asistencia_lines" t-as="line">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-1">
+
+                                        </div>
+                                        <div class="col-10">
+                                            <t t-esc="line.name.name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <t t-esc="line.name.parent_id.name"/>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Actividades Realizadas</strong></h3>
+                        <table border="1" style="border: 1px solid black; " class="col-12 table">
+                            <tr style="background-color: rgb(104, 85, 99); color:white;">
+                                <th style="with:15%; border: 1px;">Tarea</th>
+                                <th style="with:15%; border: 1px;">Asignado a</th>
+                                <th style="with:15%; border: 1px;">Fecha limite</th>
+                                <th style="with:15%; border: 1px;">Etapa</th>
+                                <th style="with:40%; border: 1px;">Descripcion</th>
+                            </tr>
+                            <t t-foreach="minuta_xmarts.activids_lines" t-as="line"></t>
+                            <tr style="background-color:#ffffff">
+                                <td style="border: 1px"><t t-esc="line.name.name"/></td>
+                                <td style="border: 1px"><t t-esc="line.asignado"/></td>
+                                <td style="border: 1px"><t t-esc="line.limite"/></td>
+                                <td style="border: 1px"><t t-esc="line.etapa"/></td>
+                                <td style="border: 1px"><t t-esc="line.observaciones"/></td>
+                            </tr>                            
+                        </table>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Compromisos</strong></h3>
+                        <table border="1" style="border: 1px solid black; " class="col-12 table">
+                            <tr style="background-color: rgb(104, 85, 99); color:white;">
+                                <th style="with:15%; border: 1px;">Tarea</th>
+                                <th style="with:15%; border: 1px;">Asignado a</th>
+                                <th style="with:15%; border: 1px;">Fecha limite</th>
+                                <th style="with:15%; border: 1px;">Etapa</th>
+                                <th style="with:40%; border: 1px;">Descripcion</th>
+                            </tr>
+                            <t t-foreach="minuta_xmarts.compromisos_lines" t-as="line"></t>
+                            <tr style="background-color:#ffffff">
+                                <td style="border: 1px"><t t-esc="line.name.name"/></td>
+                                <td style="border: 1px"><t t-esc="line.asignado"/></td>
+                                <td style="border: 1px"><t t-esc="line.limite"/></td>
+                                <td style="border: 1px"><t t-esc="line.etapa"/></td>
+                                <td style="border: 1px"><t t-esc="line.observaciones"/></td>
+                            </tr>                            
+                        </table>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Actividades Extras</strong></h3>
+                        <table border="1" style="border: 1px solid black; " class="col-12 table">
+                            <tr style="background-color: rgb(104, 85, 99); color:white;">
+                                <th style="with:50%; border: 1px;">Actividad</th>
+                                <th style="with:50%; border: 1px;">Estatus de actividad</th>
+                            </tr>
+                            <t t-foreach="minuta_xmarts.actividades_lines" t-as="line"></t>
+                            <tr style="background-color:#ffffff">
+                                <td style="border: 1px"><t t-esc="line.name"/></td>
+                                <td style="border: 1px"><t t-esc="line.status.name"/></td>
+                            </tr>                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+</odoo>

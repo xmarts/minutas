@@ -361,7 +361,7 @@
                             <br/>
                             <div class="row">
                                 <div class="col-6 d-flex justify-content-center">
-                                    <img t-if="o.client_sing" width="370" height="100" t-att-src="image_data_uri(o.client_sing)"/>
+                                    <img t-if="o.signature" width="370" height="100" t-att-src="image_data_uri(o.signature)"/> 
                                 </div>
                                 <div class="col-6 d-flex justify-content-center">
                                     <img t-if="o.xmarts_sing" width="370" height="100" t-att-src="image_data_uri(o.xmarts_sing)"/>

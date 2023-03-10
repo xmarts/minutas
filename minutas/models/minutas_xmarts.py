@@ -4,7 +4,7 @@ from odoo import models, fields, api, _, time
 
 class MinutasXmarts(models.Model):
     _name = 'minutas.xmarts'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['portal.mixin','mail.thread', 'mail.activity.mixin']
 
     def _get_default_name(self):
         cr = self.env.cr
@@ -13,6 +13,19 @@ class MinutasXmarts(models.Model):
         if id_returned == None:
             id_returned = (0,)
         return "MINUTA{}-{}".format(time.strftime("%x"),max(id_returned) + 1)
+
+    def _compute_access_url(self):
+        super()._compute_access_url()
+        for minuta in self:
+            minuta.access_url = f'/my/minutas/{minuta.id}'
+            
+    def _get_portal_return_action(self):
+        """ Return the action used to display orders when returning from customer portal. """
+        return self.env.ref('minutas.action_minutas_xmarts')
+
+    def _get_report_base_filename(self):
+        self.ensure_one()
+        return '%s - %s' % (self.name, self.proyecto.name)
 
     status = fields.Selection(
         [
@@ -51,6 +64,10 @@ class MinutasXmarts(models.Model):
         comodel_name='minutas.xmarts.hitos', 
         string="Hito"
     )
+    client_has_sing = fields.Boolean(
+        string="El cliente firmo",
+        default="False"
+    )
     fecha_proxima_reunion = fields.Datetime(string="Fecha de próxima reunión")
     fin_proxima_reunion = fields.Datetime(string="Fin próxima reunión")
     asistencia_lines = fields.One2many(
@@ -70,7 +87,7 @@ class MinutasXmarts(models.Model):
     )
     activids_lines = fields.One2many(
         'minutas.xmarts.activids', 
-        'minuta_id', 
+        'minuta_id',  
         string="Tabla Actividades"
     )
     compromisos_lines = fields.One2many(
@@ -94,6 +111,11 @@ class MinutasXmarts(models.Model):
         'res.partner', 
         string="Lugar de próxima reunión"
     )
+    partner_id = fields.Many2one(
+        'res.partner',
+        related="proyecto.partner_id",
+        store=True,
+    )
     client=fields.Binary(string="Cliente")
     consul=fields.Binary(string="Consultor")
     company_id = fields.Many2one(
@@ -109,7 +131,7 @@ class MinutasXmarts(models.Model):
     ubicaciones_virtuales = fields.Many2one('ubicaciones.virtuales')
     link_reunion = fields.Text(string="Link de la reunión")
 
-    client_sing = fields.Binary(
+    signature = fields.Binary(
         string="Firma del Cliente"
     )
 

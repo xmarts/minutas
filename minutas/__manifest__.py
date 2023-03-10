@@ -25,7 +25,8 @@
         'contacts', 
         'mail', 
         'web_digital_sign', 
-        'hr_timesheet'
+        'hr_timesheet',
+        'portal',
     ],
     # always loaded
     'data': [
@@ -37,6 +38,7 @@
         'views/minutas_xmarts_hitos_view.xml',
         'views/ubicaciones_virtuales_views.xml',
         'views/project_task_view.xml',
+        'views/minutas_xmarts_portal.xml',
         'views/project_update_view.xml',
         'reports/reporte_minuta.xml',
         'reports/reporte_orden.xml',
