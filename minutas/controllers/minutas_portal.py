@@ -116,7 +116,7 @@ class MinutasPortal(portal.CustomerPortal):
                     token=minuta_sudo.access_token,
                     message_type="notification",
                     subtype_xmlid="mail.mt_note",
-                    partner_ids = [partner], 
+                    partner_ids = [partner.id], 
                 )
 
         backend_url = f'/web#model={minuta_sudo._name}'\
