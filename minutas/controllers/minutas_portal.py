@@ -156,7 +156,7 @@ class MinutasPortal(portal.CustomerPortal):
         except (AccessError, MissingError):
             return {'error': _('Invalid order.')}
 
-        if minuta_sudo.client_has_sing == True:
+        if minuta_sudo.signature:
             return {'error': _('La Minuta ya ha sido Firmada')}
         if not signature:
             return {'error': _('No hay Firma, favor de firmar primero')}
