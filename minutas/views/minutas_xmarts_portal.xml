@@ -211,21 +211,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <t t-foreach="minuta_xmarts.asistenciain_lines" t-as="line">
+                            <t t-foreach="minuta_xmarts.asistenciain_lines" t-as="line1">
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-1">
 
                                         </div>
                                         <div class="col-10">
-                                            <t t-esc="line.name.name"/>
+                                            <t t-esc="line1.name.name"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-10">
-                                            <t t-esc="line.puesto"/>
+                                            <t t-esc="line1.puesto"/>
                                         </div>
                                     </div>
                                 </div>
@@ -254,21 +254,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <t t-foreach="minuta_xmarts.asistencia_lines" t-as="line">
+                            <t t-foreach="minuta_xmarts.asistencia_lines" t-as="line2">
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-1">
 
                                         </div>
                                         <div class="col-10">
-                                            <t t-esc="line.name.name"/>
+                                            <t t-esc="line2.name.name"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-10">
-                                            <t t-esc="line.name.parent_id.name"/>
+                                            <t t-esc="line2.name.parent_id.name"/>
                                         </div>
                                     </div>
                                     
@@ -290,13 +290,13 @@
                                 <th style="with:15%; border: 1px;">Etapa</th>
                                 <th style="with:40%; border: 1px;">Descripcion</th>
                             </tr>
-                            <t t-foreach="minuta_xmarts.activids_lines" t-as="line"></t>
+                            <t t-foreach="minuta_xmarts.activids_lines" t-as="line3"></t>
                             <tr style="background-color:#ffffff">
-                                <td style="border: 1px"><t t-esc="line.name.name"/></td>
-                                <td style="border: 1px"><t t-esc="line.asignado"/></td>
-                                <td style="border: 1px"><t t-esc="line.limite"/></td>
-                                <td style="border: 1px"><t t-esc="line.etapa"/></td>
-                                <td style="border: 1px"><t t-esc="line.observaciones"/></td>
+                                <td style="border: 1px"><t t-esc="line3.name.name"/></td>
+                                <td style="border: 1px"><t t-esc="line3.asignado"/></td>
+                                <td style="border: 1px"><t t-esc="line3.limite"/></td>
+                                <td style="border: 1px"><t t-esc="line3.etapa"/></td>
+                                <td style="border: 1px"><t t-esc="line3.observaciones"/></td>
                             </tr>                            
                         </table>
                     </div>
@@ -314,13 +314,13 @@
                                 <th style="with:15%; border: 1px;">Etapa</th>
                                 <th style="with:40%; border: 1px;">Descripcion</th>
                             </tr>
-                            <t t-foreach="minuta_xmarts.compromisos_lines" t-as="line"></t>
+                            <t t-foreach="minuta_xmarts.compromisos_lines" t-as="line4"></t>
                             <tr style="background-color:#ffffff">
-                                <td style="border: 1px"><t t-esc="line.name.name"/></td>
-                                <td style="border: 1px"><t t-esc="line.asignado"/></td>
-                                <td style="border: 1px"><t t-esc="line.limite"/></td>
-                                <td style="border: 1px"><t t-esc="line.etapa"/></td>
-                                <td style="border: 1px"><t t-esc="line.observaciones"/></td>
+                                <td style="border: 1px"><t t-esc="line4.name.name"/></td>
+                                <td style="border: 1px"><t t-esc="line4.asignado"/></td>
+                                <td style="border: 1px"><t t-esc="line4.limite"/></td>
+                                <td style="border: 1px"><t t-esc="line4.etapa"/></td>
+                                <td style="border: 1px"><t t-esc="line4.observaciones"/></td>
                             </tr>                            
                         </table>
                     </div>
@@ -335,10 +335,10 @@
                                 <th style="with:50%; border: 1px;">Actividad</th>
                                 <th style="with:50%; border: 1px;">Estatus de actividad</th>
                             </tr>
-                            <t t-foreach="minuta_xmarts.actividades_lines" t-as="line"></t>
+                            <t t-foreach="minuta_xmarts.actividades_lines" t-as="line5"></t>
                             <tr style="background-color:#ffffff">
-                                <td style="border: 1px"><t t-esc="line.name"/></td>
-                                <td style="border: 1px"><t t-esc="line.status.name"/></td>
+                                <td style="border: 1px"><t t-esc="line5.name"/></td>
+                                <td style="border: 1px"><t t-esc="line5.status.name"/></td> 
                             </tr>                            
                         </table>
                     </div>
