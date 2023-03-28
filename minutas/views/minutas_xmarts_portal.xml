@@ -279,7 +279,7 @@
                 </div>
                 <br/>
                 <br/>
-                <div class="row">
+                <div class="row" t-if="minuta_xmarts.activids_lines">
                     <div class="col-12">
                         <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Actividades Realizadas</strong></h3>
                         <table border="1" style="border: 1px solid black; " class="col-12 table">
@@ -303,7 +303,7 @@
                 </div>
                 <br/>
                 <br/>
-                <div class="row">
+                <div class="row" t-if="minuta_xmarts.compromisos_lines">
                     <div class="col-12">
                         <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Compromisos</strong></h3>
                         <table border="1" style="border: 1px solid black; " class="col-12 table">
@@ -327,7 +327,7 @@
                 </div>
                 <br/>
                 <br/>
-                <div class="row">
+                <div class="row" t-if="minuta_xmarts.actividades_lines">
                     <div class="col-12">
                         <h3 class="text-center p-2 mb-2 bg-primary text-white"><strong>Actividades Extras</strong></h3>
                         <table border="1" style="border: 1px solid black; " class="col-12 table">
