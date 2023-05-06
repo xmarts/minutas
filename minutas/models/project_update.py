@@ -6,7 +6,7 @@ STATUS_COLOR = {
     'at_risk': 2,  # orange
     'off_track': 23,  # red / danger
     'on_hold': 4,  # light blue
-    'minute': 5, # purple
+    'minute': 20, # purple
     False: 0,  # default grey -- for studio
 }
 
