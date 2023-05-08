@@ -1,7 +1,16 @@
 #-*- coding: utf-8 -*-
 from odoo import api, models, fields, _
-from .project_update import STATUS_COLOR
+#from .project_update import STATUS_COLOR
 import json
+
+STATUS_COLOR = {
+    'on_track': 20,  # green / success
+    'at_risk': 2,  # orange
+    'off_track': 23,  # red / danger
+    'on_hold': 4,  # light blue
+    'minute': 5, # purple
+    False: 0,  # default grey -- for studio
+}
 class hrProjectMinutas(models.Model):
     _inherit = 'project.project'
 
@@ -62,6 +71,12 @@ class hrProjectMinutas(models.Model):
     def _compute_last_update_status(self):
         for project in self:
             project.last_update_status = project.last_update_id.status or 'on_track'
+    
+    @api.depends('last_update_status')
+    def _compute_last_update_color(self):
+        for project in self:
+            print(STATUS_COLOR[project.last_update_status])
+            project.last_update_color = STATUS_COLOR[project.last_update_status]
 
     def count_minutas_project(self):
         minutas = self.env['minutas.xmarts'].search([

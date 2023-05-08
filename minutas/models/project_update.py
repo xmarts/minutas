@@ -6,7 +6,7 @@ STATUS_COLOR = {
     'at_risk': 2,  # orange
     'off_track': 23,  # red / danger
     'on_hold': 4,  # light blue
-    'minute': 20, # purple
+    'minute': 5, # purple
     False: 0,  # default grey -- for studio
 }
 
@@ -227,7 +227,7 @@ class ProjectUpdate(models.Model):
             default_composition_mode='comment',
             force_email=True
         )
-        self.status = 'minuta'
+        self.status = 'minute'
         body = "Minuta envíada" + "\n" + "Proyecto: " + str(self.proyecto.name)
         self.message_post(body=body, message_type='comment', subtype_xmlid='mail.mt_comment')
         return {
