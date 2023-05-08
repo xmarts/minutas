@@ -10,7 +10,7 @@ STATUS_COLOR = {
     'on_hold': 4,  # light blue
     'minute': 5, # purple
     False: 0,  # default grey -- for studio
-     'to_define':0
+    'to_define':0
 }
 class hrProjectMinutas(models.Model):
     _inherit = 'project.project'
